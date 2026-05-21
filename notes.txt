@@ -1,0 +1,19 @@
+         FILE ORGANIZATION NOTE
+    ============================================================ -->
+    <div class="note-card">
+      <div class="note-title">🗂️ How to add your files</div>
+      <ol>
+        <li>In the same folder as <code>index.html</code>, create folders named <code>week1</code>, <code>week2</
+code>, … <code>week10</code>.</li>
+        <li>Place that week's PDF report, slides, notes, and data inside the matching folder.</li>
+        <li>Make sure your file names match the links — e.g., <code>week1/report.pdf</code>, <code>week1/slides.
+pdf</code>.</li>
+        <li>If your file has a different name (e.g., <code>week1/lab-notes-june10.pdf</code>), open <code>index.
+html</code> in a text editor and update the <code>href</code> value for that link.</li>
+        <li>If you host this site online (GitHub Pages, Netlify, etc.), just upload the whole folder — 
+everything will work automatically.</li>
+      </ol>
+    </div>
+
+
+
