@@ -356,10 +356,13 @@
       align-items: center;
       gap: 16px;
       padding: 18px 24px;
-      cursor: pointer;
+      cursor: default;
       user-select: none;
       -webkit-user-select: none;
     }
+
+    /* Only week cards marked as .openable should be clickable */
+    .week-item.openable .week-header { cursor: pointer; }
 
     .week-icon {
       font-size: 1.4rem;
@@ -621,7 +624,7 @@
       <div class="overview-field full-width">
         <span class="label">Current Status</span>
         <!-- EDIT THIS: Update this badge text as the program progresses -->
-        <span class="status-badge">In Progress — Week 1 of 10</span>
+        <span class="status-badge">In Progress — Week 2 of 10</span>
       </div>
 
     </div>
@@ -639,8 +642,8 @@
       <p class="timeline-label"> 10-Week Research Timeline</p>
       <div class="timeline-bar" id="timelineBar">
         <!-- EDIT THIS: update data-status on each segment to match each week's progress -->
-        <div class="t-seg" data-status="in-progress"  title="Week 1"></div>
-        <div class="t-seg" data-status="not-started"  title="Week 2"></div>
+        <div class="t-seg" data-status="completed"    title="Week 1"></div>
+        <div class="t-seg" data-status="in-progress"  title="Week 2"></div>
         <div class="t-seg" data-status="not-started"  title="Week 3"></div>
         <div class="t-seg" data-status="not-started"  title="Week 4"></div>
         <div class="t-seg" data-status="not-started"  title="Week 5"></div>
@@ -682,7 +685,7 @@
 
 
       <!-- ===== WEEK 1 ===== -->
-      <div class="week-item" data-week="1">
+      <div class="week-item openable" data-week="1">
         <div class="week-header">
           <span class="week-icon">📂</span>
           <div class="week-meta">
@@ -691,7 +694,7 @@
             <div class="week-focus-preview">Orientation, code review, and project setup</div>
           </div>
           <!-- EDIT THIS: change class + text to: not-started | in-progress | completed -->
-          <span class="week-status-badge in-progress">In Progress</span>
+          <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
 
@@ -742,6 +745,7 @@
                 <a class="file-link" href="week1/notes.pdf"     target="_blank">Meeting Notes</a>
                 <a class="file-link" href="week1/results.pdf"   target="_blank">Initial Prototypes</a>
                 <a class="file-link" href="week1/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week1/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
 
@@ -751,14 +755,14 @@
 
 
       <!-- ===== WEEK 2 ===== -->
-      <div class="week-item" data-week="2">
+      <div class="week-item openable" data-week="2">
         <div class="week-header">
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 2</div>
             <div class="week-focus-preview">Edit this — describe Week 2's focus</div>
           </div>
-          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-status-badge in-progress">In Progress</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
@@ -771,11 +775,12 @@
             <div class="files-section">
               <span class="label">📎 Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week2/report.pdf"     target="_blank">📄 Weekly Report</a>
-                <a class="file-link" href="week2/slides.pdf"     target="_blank">📊 Slides</a>
-                <a class="file-link" href="week2/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week2/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week2/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week2/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week2/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week2/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week2/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week2/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week2/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -789,7 +794,7 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 3</div>
-            <div class="week-focus-preview">Edit this — describe Week 3's focus</div>
+            <div class="week-focus-preview">Describe Week 3's focus</div>
           </div>
           <span class="week-status-badge not-started">Not Started</span>
           <span class="week-chevron">▾</span>
@@ -802,13 +807,14 @@
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 3 challenges.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 3 next steps.</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week3/report.pdf"     target="_blank">📄 Weekly Report</a>
-                <a class="file-link" href="week3/slides.pdf"     target="_blank">📊 Slides</a>
-                <a class="file-link" href="week3/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week3/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week3/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week3/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week3/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week3/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week3/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week3/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week3/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -822,7 +828,7 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 4</div>
-            <div class="week-focus-preview">Edit this — describe Week 4's focus</div>
+            <div class="week-focus-preview">Describe Week 4's focus</div>
           </div>
           <span class="week-status-badge not-started">Not Started</span>
           <span class="week-chevron">▾</span>
@@ -835,13 +841,14 @@
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 4 challenges.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 4 next steps.</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week4/report.pdf"     target="_blank">📄 Weekly Report</a>
-                <a class="file-link" href="week4/slides.pdf"     target="_blank">📊 Slides</a>
-                <a class="file-link" href="week4/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week4/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week4/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week4/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week4/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week4/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week4/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week4/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week4/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -855,7 +862,7 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 5</div>
-            <div class="week-focus-preview">Edit this — describe Week 5's focus</div>
+            <div class="week-focus-preview">Describe Week 5's focus</div>
           </div>
           <span class="week-status-badge not-started">Not Started</span>
           <span class="week-chevron">▾</span>
@@ -868,13 +875,14 @@
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 5 challenges.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 5 next steps.</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week5/report.pdf"     target="_blank">📄 Weekly Report</a>
-                <a class="file-link" href="week5/slides.pdf"     target="_blank">📊 Slides</a>
-                <a class="file-link" href="week5/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week5/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week5/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week5/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week5/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week5/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week5/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week5/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week5/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -888,7 +896,7 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 6</div>
-            <div class="week-focus-preview">Edit this — describe Week 6's focus</div>
+            <div class="week-focus-preview">Describe Week 6's focus</div>
           </div>
           <span class="week-status-badge not-started">Not Started</span>
           <span class="week-chevron">▾</span>
@@ -901,13 +909,14 @@
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 6 challenges.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 6 next steps.</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week6/report.pdf"     target="_blank">📄 Weekly Report</a>
-                <a class="file-link" href="week6/slides.pdf"     target="_blank">📊 Slides</a>
-                <a class="file-link" href="week6/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week6/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week6/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week6/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week6/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week6/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week6/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week6/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week6/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -921,7 +930,7 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 7</div>
-            <div class="week-focus-preview">Edit this — describe Week 7's focus</div>
+            <div class="week-focus-preview">Describe Week 7's focus</div>
           </div>
           <span class="week-status-badge not-started">Not Started</span>
           <span class="week-chevron">▾</span>
@@ -934,13 +943,14 @@
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 7 challenges.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 7 next steps.</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week7/report.pdf"     target="_blank">📄 Weekly Report</a>
-                <a class="file-link" href="week7/slides.pdf"     target="_blank">📊 Slides</a>
-                <a class="file-link" href="week7/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week7/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week7/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week7/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week7/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week7/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week7/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week7/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week7/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -954,7 +964,7 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 8</div>
-            <div class="week-focus-preview">Edit this — describe Week 8's focus</div>
+            <div class="week-focus-preview">Describe Week 8's focus</div>
           </div>
           <span class="week-status-badge not-started">Not Started</span>
           <span class="week-chevron">▾</span>
@@ -967,13 +977,14 @@
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 8 challenges.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 8 next steps.</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week8/report.pdf"     target="_blank">📄 Weekly Report</a>
-                <a class="file-link" href="week8/slides.pdf"     target="_blank">📊 Slides</a>
-                <a class="file-link" href="week8/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week8/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week8/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week8/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week8/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week8/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week8/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week8/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week8/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -987,7 +998,7 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 9</div>
-            <div class="week-focus-preview">Edit this — describe Week 9's focus</div>
+            <div class="week-focus-preview">Describe Week 9's focus</div>
           </div>
           <span class="week-status-badge not-started">Not Started</span>
           <span class="week-chevron">▾</span>
@@ -1000,13 +1011,14 @@
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 9 challenges.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 9 next steps.</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week9/report.pdf"     target="_blank">📄 Weekly Report</a>
-                <a class="file-link" href="week9/slides.pdf"     target="_blank">📊 Slides</a>
-                <a class="file-link" href="week9/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week9/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week9/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week9/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week9/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week9/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week9/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week9/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week9/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -1020,7 +1032,7 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 10</div>
-            <div class="week-focus-preview">Edit this — final presentations and wrap-up</div>
+            <div class="week-focus-preview">Final presentations and wrap-up</div>
           </div>
           <span class="week-status-badge not-started">Not Started</span>
           <span class="week-chevron">▾</span>
@@ -1036,10 +1048,11 @@
               <span class="label">📎 Files &amp; Documents</span>
               <div class="files-grid">
                 <a class="file-link" href="week10/report.pdf"     target="_blank">📄 Final Report</a>
-                <a class="file-link" href="week10/slides.pdf"     target="_blank">📊 Final Slides</a>
+                <a class="file-link" href="week10/slides.pdf"     target="_blank">Final Slides</a>
                 <a class="file-link" href="week10/notes.pdf"      target="_blank">📝 Notes</a>
                 <a class="file-link" href="week10/results.pdf"    target="_blank">📈 Data / Results</a>
                 <a class="file-link" href="week10/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week10/collaborators.pdf" target="_blank">🤝 Collaborators</a>
               </div>
             </div>
           </div>
@@ -1071,6 +1084,9 @@
     const weekItems = document.querySelectorAll('.week-item');
 
     weekItems.forEach(function(item) {
+      // Only attach click handlers to weeks that are explicitly openable
+      if (!item.classList.contains('openable')) return;
+
       // Find the clickable header and the expandable body inside this card
       const header = item.querySelector('.week-header');
       const body   = item.querySelector('.week-body');
