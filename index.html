@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Progress Hub 2026</title>
+
+  <!-- ============================================================
+       GOOGLE FONTS
+       Using "DM Serif Display" for headings and "DM Sans" for body.
+       Both loaded from Google Fonts — no other external dependencies.
+  ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES (variables)
+       Edit these to quickly change the color scheme.
+    ============================================================ */
+    :root {
+      --bg-deep:        #0a0e1a;
+      --bg-mid:         #0f1526;
+      --bg-card:        #141b30;
+      --bg-card-hover:  #1a2240;
+      --border:         rgba(100, 140, 255, 0.12);
+      --border-hover:   rgba(100, 140, 255, 0.35);
+
+      --accent-blue:    #5b8cff;
+      --accent-teal:    #38d9c0;
+      --accent-violet:  #a78bfa;
+      --accent-amber:   #fbbf24;
+
+      --text-primary:   #e8edf8;
+      --text-secondary: #8a97bb;
+      --text-muted:     #4a5470;
+
+      --status-not-started: #4a5470;
+      --status-in-progress: #fbbf24;
+      --status-completed:   #38d9c0;
+
+      --radius-card:  14px;
+      --radius-sm:     8px;
+      --shadow-card:  0 4px 24px rgba(0,0,0,0.35);
+      --transition:   0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Subtle animated starfield background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.18) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 10%, rgba(255,255,255,0.12) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.10) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 55%, rgba(255,255,255,0.14) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5%  85%, rgba(255,255,255,0.10) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 40%, rgba(255,255,255,0.08) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+    ============================================================ */
+    h1, h2, h3, h4 {
+      font-family: 'DM Serif Display', serif;
+      line-height: 1.2;
+    }
+
+    .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover { color: var(--accent-teal); text-decoration: underline; }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .site-header {
+      text-align: center;
+      padding: 72px 20px 56px;
+      position: relative;
+    }
+
+    /* Glowing orb behind the title */
+    .site-header::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 420px;
+      height: 220px;
+      background: radial-gradient(ellipse at center,
+        rgba(91, 140, 255, 0.18) 0%,
+        rgba(167, 139, 250, 0.10) 45%,
+        transparent 70%);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .site-header .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      margin-bottom: 16px;
+    }
+
+    .site-header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+
+    .site-header h1 span {
+      /* The word "Progress" gets an accent color */
+      color: var(--accent-blue);
+    }
+
+    .site-header .subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .site-header .intro {
+      max-width: 580px;
+      margin: 0 auto;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      border-radius: var(--radius-card);
+      padding: 18px 24px;
+      line-height: 1.75;
+    }
+
+    /* ============================================================
+       SECTION LABEL / DIVIDER
+    ============================================================ */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 52px 0 22px;
+    }
+
+    .section-header .section-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ============================================================
+       RESEARCH OVERVIEW CARD
+    ============================================================ */
+    .overview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 32px;
+    }
+
+    @media (max-width: 600px) {
+      .overview-card { grid-template-columns: 1fr; }
+    }
+
+    .overview-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .overview-field .label { color: var(--accent-violet); }
+
+    .overview-field .value {
+      font-size: 0.98rem;
+      color: var(--text-primary);
+    }
+
+    /* The "Current Status" field spans full width */
+    .overview-field.full-width { grid-column: 1 / -1; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 99px;
+      background: rgba(56, 217, 192, 0.12);
+      color: var(--accent-teal);
+      border: 1px solid rgba(56, 217, 192, 0.25);
+    }
+
+    .status-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-teal);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    /* ============================================================
+       TIMELINE BAR
+    ============================================================ */
+    .timeline-section {
+      margin: 52px 0 28px;
+    }
+
+    .timeline-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .timeline-bar {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .timeline-bar .t-seg {
+      flex: 1;
+      height: 6px;
+      border-radius: 99px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: background var(--transition);
+      position: relative;
+    }
+
+    /* ============================================================
+       Color each segment by status.
+       To change a week's status color, find the data-status attribute
+       on the matching .t-seg element and change its value.
+       Options: "not-started" | "in-progress" | "completed"
+    ============================================================ */
+    .t-seg[data-status="completed"]   { background: var(--accent-teal); border-color: var(--accent-teal); }
+    .t-seg[data-status="in-progress"] { background: var(--accent-amber); border-color: var(--accent-amber); }
+    .t-seg[data-status="not-started"] { background: var(--bg-card); }
+
+    .timeline-weeks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .timeline-weeks span {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      flex: 1;
+      text-align: center;
+    }
+
+    /* ============================================================
+       WEEK FOLDER CARDS
+    ============================================================ */
+    .weeks-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ------ The clickable "folder" header ------ */
+    .week-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .week-item:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 6px 32px rgba(91,140,255,0.10);
+    }
+
+    .week-item.open {
+      border-color: var(--accent-blue);
+      box-shadow: 0 6px 32px rgba(91,140,255,0.18);
+    }
+
+    .week-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      cursor: default;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Only week cards marked as .openable should be clickable */
+    .week-item.openable .week-header { cursor: pointer; }
+
+    .week-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      transition: transform var(--transition);
+    }
+
+    .week-item.open .week-icon { transform: rotate(-20deg); }
+
+    .week-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .week-meta .week-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+    }
+
+    /* ============================================================
+       EDIT THIS: Week focus teaser line shown on the folder header.
+       Find the <span class="week-focus-preview"> inside each week-header
+       and update the text to match that week's topic.
+    ============================================================ */
+    .week-meta .week-focus-preview {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .week-status-badge {
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 11px;
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Status badge colors */
+    .week-status-badge.not-started {
+      background: rgba(74, 84, 112, 0.3);
+      color: var(--text-muted);
+      border: 1px solid rgba(74,84,112,0.4);
+    }
+    .week-status-badge.in-progress {
+      background: rgba(251,191,36, 0.12);
+      color: var(--accent-amber);
+      border: 1px solid rgba(251,191,36, 0.3);
+    }
+    .week-status-badge.completed {
+      background: rgba(56,217,192, 0.10);
+      color: var(--accent-teal);
+      border: 1px solid rgba(56,217,192, 0.25);
+    }
+
+    /* Arrow chevron */
+    .week-chevron {
+      flex-shrink: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: transform var(--transition);
+    }
+    .week-item.open .week-chevron { transform: rotate(180deg); }
+
+    /* ------ The expandable content panel ------ */
+    .week-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .week-body-inner {
+      border-top: 1px solid var(--border);
+      padding: 28px 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 32px;
+    }
+
+    @media (max-width: 620px) {
+      .week-body-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ------ Report fields inside the panel ------ */
+    .report-field { display: flex; flex-direction: column; gap: 6px; }
+
+    .report-field .label { color: var(--accent-blue); }
+
+    .report-field p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Files section inside each week */
+    .files-section {
+      grid-column: 1 / -1;
+      margin-top: 6px;
+    }
+
+    .files-section .label {
+      color: var(--accent-teal);
+      margin-bottom: 10px;
+    }
+
+    .files-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .file-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      transition: all var(--transition);
+    }
+
+    .file-link:hover {
+      background: rgba(91,140,255,0.1);
+      border-color: var(--accent-blue);
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    /* ============================================================
+       NOTE CARD  (file organization instructions)
+    ============================================================ */
+    .note-card {
+      margin-top: 44px;
+      background: rgba(167,139,250, 0.06);
+      border: 1px solid rgba(167,139,250, 0.2);
+      border-radius: var(--radius-card);
+      padding: 24px 28px;
+    }
+
+    .note-card .note-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--accent-violet);
+      margin-bottom: 10px;
+    }
+
+    .note-card ol {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .note-card li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .note-card code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      background: rgba(255,255,255,0.07);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--accent-teal);
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .site-footer {
+      text-align: center;
+      margin-top: 72px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       RESPONSIVE TWEAKS
+    ============================================================ */
+    @media (max-width: 480px) {
+      .week-header { padding: 14px 16px; gap: 10px; }
+      .week-body-inner { padding: 18px 16px 22px; }
+      .overview-card { padding: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+
+    <!-- ============================================================
+         HEADER
+    ============================================================ -->
+    <header class="site-header">
+      <p class="eyebrow">Summer 2026 Research</p>
+
+      <h1>Research <span>Progress</span> Hub</h1>
+
+      <p class="subtitle">Weekly updates, reports, slides, and documentation</p>
+
+      <!-- EDIT THIS: update the intro text to describe your research program -->
+      <p class="intro">
+        This site tracks our team's research progress. Each week, we log our focus
+        areas, accomplishments, challenges, and next steps — and link to our reports,
+        slides, and data. Use the week folders below to navigate to any week's materials.
+      </p>
+    </header>
+
+
+    <!-- ============================================================
+         RESEARCH OVERVIEW
+    ============================================================ -->
+    <div class="section-header">
+      <h2>Research Overview</h2>
+    </div>
+
+    <div class="overview-card">
+
+      <div class="overview-field">
+        <span class="label">Project Title</span>
+        <span class="value">AntiCopyPaster</span>
+      </div>
+
+      <div class="overview-field">
+        <span class="label">Research Advisor</span>
+        <span class="value">Dr. Eman AlOmar, Systems Engineering</span>
+      </div>
+
+      <div class="overview-field">
+        <span class="label">Team Members</span>
+        <span class="value">Amaro Da Luz · Dhir Rana · Fintan Naughton · Jake Stinton · Juliana Pimentel</span>
+      </div>
+
+      <div class="overview-field">
+        <span class="label">Program / Institution</span>
+        <span class="value">Stevens Institute of Technology — Summer Research 2026</span>
+      </div>
+
+      <div class="overview-field full-width">
+        <span class="label">Research Goal</span>
+        <span class="value">
+          Improve the UI and user experience of the AntiCopyPaster tool.
+        </span>
+      </div>
+
+      <div class="overview-field full-width">
+        <span class="label">Current Status</span>
+        <!-- EDIT THIS: Update this badge text as the program progresses -->
+        <span class="status-badge">In Progress — Week 3 of 10</span>
+      </div>
+
+    </div>
+
+
+    <!-- ============================================================
+         TIMELINE BAR
+         Each segment represents one week.
+         Change data-status on each .t-seg to:
+           "completed"   → teal
+           "in-progress" → amber/yellow
+           "not-started" → grey
+    ============================================================ -->
+    <div class="timeline-section">
+      <p class="timeline-label"> 10-Week Research Timeline</p>
+      <div class="timeline-bar" id="timelineBar">
+        <!-- EDIT THIS: update data-status on each segment to match each week's progress -->
+        <div class="t-seg" data-status="completed"    title="Week 1"></div>
+        <div class="t-seg" data-status="completed"    title="Week 2"></div>
+        <div class="t-seg" data-status="in-progress"  title="Week 3"></div>
+        <div class="t-seg" data-status="not-started"  title="Week 4"></div>
+        <div class="t-seg" data-status="not-started"  title="Week 5"></div>
+        <div class="t-seg" data-status="not-started"  title="Week 6"></div>
+        <div class="t-seg" data-status="not-started"  title="Week 7"></div>
+        <div class="t-seg" data-status="not-started"  title="Week 8"></div>
+        <div class="t-seg" data-status="not-started"  title="Week 9"></div>
+        <div class="t-seg" data-status="not-started"  title="Week 10"></div>
+      </div>
+      <div class="timeline-weeks">
+        <span>Wk 1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        <span>6</span><span>7</span><span>8</span><span>9</span><span>Wk 10</span>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         10-WEEK PROGRESS FOLDERS
+         Each .week-item is one "folder" card.
+         Click the header to open/close it.
+    ============================================================ -->
+    <div class="section-header">
+      <h2>Weekly Progress</h2>
+    </div>
+
+    <div class="weeks-grid" id="weeksGrid">
+
+      <!--
+        ============================================================
+        HOW TO EDIT EACH WEEK:
+        1. Find the week you want to update (e.g., "Week 1").
+        2. Update the week-focus-preview span (the short teaser shown on the folder).
+        3. Update the status badge class: not-started | in-progress | completed
+           AND change the badge text to match.
+        4. Inside the week-body, fill in each report-field > p with real content.
+        5. Update the file links (href="...") to point to your actual files.
+        ============================================================
+      -->
+
+
+      <!-- ===== WEEK 1 ===== -->
+      <div class="week-item openable" data-week="1">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 1</div>
+            <!-- EDIT THIS: short summary of the week's focus, shown on the folder tab -->
+            <div class="week-focus-preview">Orientation, code review, and project setup</div>
+          </div>
+          <!-- EDIT THIS: change class + text to: not-started | in-progress | completed -->
+          <span class="week-status-badge completed">Completed</span>
+          <span class="week-chevron">▾</span>
+        </div>
+
+        <div class="week-body">
+          <div class="week-body-inner">
+
+            <div class="report-field">
+              <span class="label">Week Focus</span>
+              <!-- EDIT THIS -->
+              <p>Orientation to the research group, getting access to tools and systems, initial code review.</p>
+            </div>
+
+            <div class="report-field">
+              <span class="label">Summary of Progress</span>
+              <!-- EDIT THIS -->
+              <p>The team got familiar with the research tools and systems. Discussed the current research direction and goals (UI improvements). And created prototypes for the new UI elements.</p>
+            </div>
+
+            <div class="report-field">
+              <span class="label">Key Accomplishments</span>
+              <!-- EDIT THIS -->
+              <p>- Familiarized with Github and Anticopypaster Agents</p>
+              <p>- Discussed design elements and user needs</p>
+              <p>- Created prototypes and chose the initial design direction</p>
+              <p>- Created a Website to track progress</p>
+            </div>
+
+            <div class="report-field">
+              <span class="label">Challenges &amp; Blockers</span>
+              <!-- EDIT THIS -->
+              <p>The team didn't encounter any major challenges this week.</p>
+            </div>
+
+            <div class="report-field full-width" style="grid-column: 1 / -1;">
+              <span class="label">Next Steps</span>
+              <!-- EDIT THIS -->
+              <p>- Continue getting familiarized with the code and other tools. </p>
+              <p>- Polish and start implementing the chosen design direction. </p>
+            </div>
+
+            <!-- Files for Week 1 -->
+            <div class="files-section">
+              <span class="label">📎 Files &amp; Documents</span>
+              <div class="files-grid">
+                <!-- EDIT THIS: update href values once you add real files -->
+                <a class="file-link" href="week1/report.pdf"    target="_blank">Weekly Report</a>
+                <a class="file-link" href="week1/slides.pdf"    target="_blank">Slides</a>
+                <a class="file-link" href="week1/notes.pdf"     target="_blank">Meeting Notes</a>
+                <a class="file-link" href="week1/results.pdf"   target="_blank">Initial Prototypes</a>
+                <a class="file-link" href="week1/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week1/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+
+          </div><!-- /week-body-inner -->
+        </div><!-- /week-body -->
+      </div><!-- /week-item week 1 -->
+
+
+      <!-- ===== WEEK 2 ===== -->
+      <div class="week-item openable" data-week="2">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 2</div>
+            <div class="week-focus-preview">Edit this — describe Week 2's focus</div>
+          </div>
+          <span class="week-status-badge completed">Completed</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 2 focus.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 2 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 2 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 2 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 2 next steps.</p></div>
+            <div class="files-section">
+              <span class="label">📎 Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week2/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week2/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week2/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week2/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week2/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week2/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== WEEK 3 ===== -->
+      <div class="week-item openable" data-week="3">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 3</div>
+            <div class="week-focus-preview">Describe Week 3's focus</div>
+          </div>
+          <span class="week-status-badge in-progress">In Progress</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 3 focus.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 3 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 3 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 3 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 3 next steps.</p></div>
+            <div class="files-section">
+              <span class="label">Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week3/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week3/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week3/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week3/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week3/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week3/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== WEEK 4 ===== -->
+      <div class="week-item" data-week="4">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 4</div>
+            <div class="week-focus-preview">Describe Week 4's focus</div>
+          </div>
+          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 4 focus.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 4 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 4 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 4 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 4 next steps.</p></div>
+            <div class="files-section">
+              <span class="label">Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week4/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week4/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week4/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week4/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week4/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week4/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== WEEK 5 ===== -->
+      <div class="week-item" data-week="5">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 5</div>
+            <div class="week-focus-preview">Describe Week 5's focus</div>
+          </div>
+          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 5 focus.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 5 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 5 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 5 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 5 next steps.</p></div>
+            <div class="files-section">
+              <span class="label">Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week5/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week5/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week5/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week5/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week5/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week5/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== WEEK 6 ===== -->
+      <div class="week-item" data-week="6">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 6</div>
+            <div class="week-focus-preview">Describe Week 6's focus</div>
+          </div>
+          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 6 focus.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 6 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 6 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 6 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 6 next steps.</p></div>
+            <div class="files-section">
+              <span class="label">Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week6/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week6/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week6/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week6/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week6/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week6/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== WEEK 7 ===== -->
+      <div class="week-item" data-week="7">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 7</div>
+            <div class="week-focus-preview">Describe Week 7's focus</div>
+          </div>
+          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 7 focus.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 7 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 7 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 7 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 7 next steps.</p></div>
+            <div class="files-section">
+              <span class="label">Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week7/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week7/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week7/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week7/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week7/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week7/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== WEEK 8 ===== -->
+      <div class="week-item" data-week="8">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 8</div>
+            <div class="week-focus-preview">Describe Week 8's focus</div>
+          </div>
+          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 8 focus.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 8 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 8 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 8 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 8 next steps.</p></div>
+            <div class="files-section">
+              <span class="label">Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week8/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week8/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week8/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week8/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week8/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week8/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== WEEK 9 ===== -->
+      <div class="week-item" data-week="9">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 9</div>
+            <div class="week-focus-preview">Describe Week 9's focus</div>
+          </div>
+          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 9 focus.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 9 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 9 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 9 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 9 next steps.</p></div>
+            <div class="files-section">
+              <span class="label">Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week9/report.pdf"     target="_blank">Weekly Report</a>
+                <a class="file-link" href="week9/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week9/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week9/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week9/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week9/collaborators.pdf" target="_blank">Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== WEEK 10 ===== -->
+      <div class="week-item" data-week="10">
+        <div class="week-header">
+          <span class="week-icon">📂</span>
+          <div class="week-meta">
+            <div class="week-num">Week 10</div>
+            <div class="week-focus-preview">Final presentations and wrap-up</div>
+          </div>
+          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-chevron">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="week-body-inner">
+            <div class="report-field"><span class="label">Week Focus</span><p>Final presentations, wrap-up, and next steps for the research.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 10 summary.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 10 accomplishments.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 10 challenges.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>What comes after the 10-week program? Future directions?</p></div>
+            <div class="files-section">
+              <span class="label">📎 Files &amp; Documents</span>
+              <div class="files-grid">
+                <a class="file-link" href="week10/report.pdf"     target="_blank">📄 Final Report</a>
+                <a class="file-link" href="week10/slides.pdf"     target="_blank">Final Slides</a>
+                <a class="file-link" href="week10/notes.pdf"      target="_blank">📝 Notes</a>
+                <a class="file-link" href="week10/results.pdf"    target="_blank">📈 Data / Results</a>
+                <a class="file-link" href="week10/other-docs.pdf" target="_blank">📁 Other Documents</a>
+                <a class="file-link" href="week10/collaborators.pdf" target="_blank">🤝 Collaborators</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /weeks-grid -->
+
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer class="site-footer">
+      <!-- EDIT THIS: update the year and names as needed -->
+      Summer Research Progress Hub &nbsp;·&nbsp; Stevens Institute of Technology &nbsp;·&nbsp; 2026
+    </footer>
+
+  </div><!-- /page-wrapper -->
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+       This handles:
+       1. Opening and closing week folder cards (accordion behavior).
+       2. Making sure only one week is open at a time.
+  ============================================================ -->
+  <script>
+    // Grab every week card on the page
+    const weekItems = document.querySelectorAll('.week-item');
+
+    weekItems.forEach(function(item) {
+      // Only attach click handlers to weeks that are explicitly openable
+      if (!item.classList.contains('openable')) return;
+
+      // Find the clickable header and the expandable body inside this card
+      const header = item.querySelector('.week-header');
+      const body   = item.querySelector('.week-body');
+
+      // When the user clicks the folder header...
+      header.addEventListener('click', function() {
+
+        const isOpen = item.classList.contains('open');
+
+        // ---- Step 1: Close ALL weeks ----
+        // Loop through every week card, remove the "open" class,
+        // and set each panel's max-height back to 0 (collapsed).
+        weekItems.forEach(function(otherItem) {
+          otherItem.classList.remove('open');
+          otherItem.querySelector('.week-body').style.maxHeight = '0px';
+        });
+
+        // ---- Step 2: If this week was NOT already open, open it ----
+        // (If it was already open, the step above already closed it — done.)
+        if (!isOpen) {
+          item.classList.add('open');
+          // Set max-height to the panel's actual scroll height so CSS can animate to it.
+          // scrollHeight gives us the full height of the hidden content.
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
