@@ -498,6 +498,47 @@
       text-decoration: none;
     }
 
+    .test-run-media {
+      grid-column: 1 / -1;
+      margin: 4px 0 8px;
+    }
+
+    .test-run-media video {
+      display: block;
+      width: 100%;
+      max-height: 620px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #000;
+    }
+
+    .test-run-media figcaption {
+      margin-top: 8px;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .video-placeholder {
+      min-height: 260px;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.025);
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .video-placeholder strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
     /* ============================================================
        NOTE CARD  (file organization instructions)
     ============================================================ */
@@ -624,7 +665,7 @@
       <div class="overview-field full-width">
         <span class="label">Current Status</span>
         <!-- EDIT THIS: Update this badge text as the program progresses -->
-        <span class="status-badge">In Progress - Week 4 of 10</span>
+        <span class="status-badge">In Progress - Week 7 of 10</span>
       </div>
 
     </div>
@@ -645,10 +686,10 @@
         <div class="t-seg" data-status="completed"    title="Week 1"></div>
         <div class="t-seg" data-status="completed"    title="Week 2"></div>
         <div class="t-seg" data-status="completed"    title="Week 3"></div>
-        <div class="t-seg" data-status="in-progress"  title="Week 4"></div>
-        <div class="t-seg" data-status="not-started"  title="Week 5"></div>
-        <div class="t-seg" data-status="not-started"  title="Week 6"></div>
-        <div class="t-seg" data-status="not-started"  title="Week 7"></div>
+        <div class="t-seg" data-status="completed"  title="Week 4"></div>
+        <div class="t-seg" data-status="completed"  title="Week 5"></div>
+        <div class="t-seg" data-status="completed"  title="Week 6"></div>
+        <div class="t-seg" data-status="in-progress"  title="Week 7"></div>
         <div class="t-seg" data-status="not-started"  title="Week 8"></div>
         <div class="t-seg" data-status="not-started"  title="Week 9"></div>
         <div class="t-seg" data-status="not-started"  title="Week 10"></div>
@@ -828,18 +869,18 @@
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 4</div>
-            <div class="week-focus-preview">Current work: UI panel improvements and tool testing</div>
+            <div class="week-focus-preview">IntelliJ-style UI design, multiple-clone cards, and implementation planning</div>
           </div>
-          <span class="week-status-badge in-progress">In Progress</span>
+          <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Continue improving the AntiCopyPaster UI panel, test the tool more deeply, and turn the Week 3 findings into implementation updates.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>Week 4 is currently in progress. The team is working from the previous week's action items, including UI panel changes, confidence/trust score updates, API key validation fixes, and clearer testing documentation.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Work in progress.</p><p>- Continue adding updates here as Week 4 tasks are completed.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Current focus areas include validating UI changes, resolving any remaining API key issues, and documenting tool behavior during testing.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Implement and test the UI panel improvements, confirm confidence/trust score behavior, verify API key validation, and add completed Week 4 files once they are ready.</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Move from the completed IntelliJ-style Figma design into UI Panel implementation planning, with special attention to multiple-clone cases, current panel review through runIDE, and a clear branch and pull request workflow.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>The team presented the Week 3 progress slides, confirmed that all members could run AntiCopyPaster, and identified API token/provider limits as the main remaining tool-running issue. The UI design was finalized using the IntelliJ Figma Kit, the AI Trust Score direction was reviewed, and the team planned how to compare the existing UI Panel with the finished design before larger implementation changes.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Finished the IntelliJ-style UI design in Figma.</p><p>- Decided that multiple detected clones should appear as separate cards so each suggestion can be reviewed individually.</p><p>- Divided UI implementation sections across the team: multiple-clone cards, explanation content, diff preview, AI Trust/validation, and action buttons.</p><p>- Agreed to use separate branches and pull requests into the ui_panel branch for review and merging.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>The team still needs to compare the current UI Panel against the Figma design using runIDE and Dr. AlOmar's demo video. API token and provider limits remain the main tool-running constraint, and UI work needs careful coordination so parallel branches can merge cleanly.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Begin implementing each assigned UI section on separate branches, capture screenshots or recordings of the current UI Panel when possible, open pull requests into ui_panel, review and resolve conflicts as a team, and continue updating the website with weekly files and implementation evidence.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
@@ -847,8 +888,8 @@
                 <a class="file-link" href="week4/slides.pdf"     target="_blank">Slides</a>
                 <a class="file-link" href="week4/notes.pdf"      target="_blank">Notes</a>
                 <a class="file-link" href="week4/results.pdf"    target="_blank">Data / Results</a>
-                <a class="file-link" href="week4/other-docs.pdf" target="_blank">Other Documents</a>
                 <a class="file-link" href="week4/collaborators.pdf" target="_blank">Collaborators</a>
+                <a class="file-link" href="https://www.figma.com/design/ZcTzrXkUnPMpvlzgHBqexG/Untitled?node-id=469-48464" target="_blank">Figma Designs</a>
               </div>
             </div>
           </div>
@@ -857,32 +898,31 @@
 
 
       <!-- ===== WEEK 5 ===== -->
-      <div class="week-item" data-week="5">
+      <div class="week-item openable" data-week="5">
         <div class="week-header">
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 5</div>
-            <div class="week-focus-preview">Describe Week 5's focus</div>
+            <div class="week-focus-preview">UI panel implementation, clone-level controls, and pull request workflow</div>
           </div>
-          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 5 focus.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 5 summary.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 5 accomplishments.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 5 challenges.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 5 next steps.</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Implement the redesigned UI panel, improve how multiple detected clones are reviewed, and establish the pull request, review, and merge process for the team's separate branches.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>All team members continued implementing their assigned portions of the UI panel. The team refined the multiple-clone experience so each clone appears in its own card, added clone-level decisions, and clarified how users can edit suggested code and respond when validation fails.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Designed separate cards for each detected clone.</p><p>- Added Include and Exclude actions so users can decide whether each clone should be refactored.</p><p>- Added direct editing so users can revise code before applying AI-suggested changes.</p><p>- Defined that the Apply action is disabled when validation fails.</p><p>- Confirmed the workflow for opening pull requests into the ui_panel branch, assigning reviewers, and merging approved changes.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Parallel UI changes still require careful review and conflict resolution before they can be merged into the ui_panel branch. Validation failures must also be communicated clearly because they leave no valid change for the user to apply.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Finish each assigned implementation, push the individual branches, open pull requests into ui_panel, assign reviewers, resolve merge conflicts, and merge approved work. Continue sharing screenshots of implementation progress and updating the research website.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
                 <a class="file-link" href="week5/report.pdf"     target="_blank">Weekly Report</a>
                 <a class="file-link" href="week5/slides.pdf"     target="_blank">Slides</a>
                 <a class="file-link" href="week5/notes.pdf"      target="_blank">Notes</a>
-                <a class="file-link" href="week5/results.pdf"    target="_blank">Data / Results</a>
-                <a class="file-link" href="week5/other-docs.pdf" target="_blank">Other Documents</a>
                 <a class="file-link" href="week5/collaborators.pdf" target="_blank">Collaborators</a>
+                <a class="file-link" href="week5/RunIDE_Test.mov" target="_blank">Initial UI Test Run</a>
               </div>
             </div>
           </div>
@@ -891,31 +931,36 @@
 
 
       <!-- ===== WEEK 6 ===== -->
-      <div class="week-item" data-week="6">
+      <div class="week-item openable" data-week="6">
         <div class="week-header">
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 6</div>
-            <div class="week-focus-preview">Describe Week 6's focus</div>
+            <div class="week-focus-preview">Pull request reviews, UI integration, and initial testing</div>
           </div>
-          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 6 focus.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 6 summary.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 6 accomplishments.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 6 challenges.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 6 next steps.</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Complete the team's assigned UI sections, review and test each pull request, merge the approved work into the ui_panel branch, and run an initial test of the integrated interface.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>Every team member pushed their implementation to an individual branch and opened a pull request. Team members then cross-tested one another's changes, verified the integrated behavior, and merged the reviewed work into the ui_panel branch. The project website and supporting files were also brought up to date.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Completed the assigned UI sections: multiple-clone UI, explanations, diff preview, AI Trust validation, and buttons/actions.</p><p>- Opened pull requests for each team member's branch.</p><p>- Cross-tested teammates' code before approval.</p><p>- Merged the reviewed implementations into the ui_panel branch.</p><p>- Performed an initial test run of the integrated UI panel.</p><p>- Updated the website and weekly project files.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>The separate UI contributions had to be reviewed and tested together to catch integration problems before merging. The final merge from ui_panel into the main branch remains dependent on Professor AlOmar's review.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Begin working in Overleaf, keep sharing screenshots and progress updates with the team, maintain the research website, and prepare the reviewed ui_panel work for Professor AlOmar to merge into the main branch.</p></div>
+            <figure class="test-run-media">
+              <!-- Replace this placeholder with a video element like Week 5 once the final recording is available. -->
+              <div class="video-placeholder" role="status">
+                <div><strong>Finalized UI Panel Video Coming Soon</strong>A recording of the completed UI panel with all updates and merged contributions will be added here.</div>
+              </div>
+              <figcaption>Placeholder for the finalized UI-panel test run.</figcaption>
+            </figure>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
                 <a class="file-link" href="week6/report.pdf"     target="_blank">Weekly Report</a>
                 <a class="file-link" href="week6/slides.pdf"     target="_blank">Slides</a>
                 <a class="file-link" href="week6/notes.pdf"      target="_blank">Notes</a>
-                <a class="file-link" href="week6/results.pdf"    target="_blank">Data / Results</a>
-                <a class="file-link" href="week6/other-docs.pdf" target="_blank">Other Documents</a>
                 <a class="file-link" href="week6/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
@@ -925,14 +970,14 @@
 
 
       <!-- ===== WEEK 7 ===== -->
-      <div class="week-item" data-week="7">
+      <div class="week-item openable" data-week="7">
         <div class="week-header">
           <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 7</div>
-            <div class="week-focus-preview">Describe Week 7's focus</div>
+            <div class="week-focus-preview">Current week — research and project updates in progress</div>
           </div>
-          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-status-badge in-progress">In Progress</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
