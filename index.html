@@ -3,22 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research Progress Hub 2026</title>
+  <title>CLONE — AI-Assisted IntelliJ Plugin for Clone Refactoring</title>
 
   <!-- ============================================================
        GOOGLE FONTS
-       Using "DM Serif Display" for headings and "DM Sans" for body.
-       Both loaded from Google Fonts — no other external dependencies.
+       "DM Serif Display" for headings, "DM Sans" for body.
   ============================================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* ============================================================
-       CSS CUSTOM PROPERTIES (variables)
-       Edit these to quickly change the color scheme.
-    ============================================================ */
     :root {
       --bg-deep:        #0a0e1a;
       --bg-mid:         #0f1526;
@@ -44,18 +39,11 @@
       --radius-sm:     8px;
       --shadow-card:  0 4px 24px rgba(0,0,0,0.35);
       --transition:   0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      --nav-height:   64px;
     }
 
-    /* ============================================================
-       RESET & BASE
-    ============================================================ */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 12px); }
 
     body {
       font-family: 'DM Sans', sans-serif;
@@ -67,7 +55,6 @@
       overflow-x: hidden;
     }
 
-    /* Subtle animated starfield background */
     body::before {
       content: '';
       position: fixed;
@@ -86,18 +73,12 @@
     .page-wrapper {
       position: relative;
       z-index: 1;
-      max-width: 960px;
+      max-width: 1040px;
       margin: 0 auto;
       padding: 0 20px 80px;
     }
 
-    /* ============================================================
-       TYPOGRAPHY HELPERS
-    ============================================================ */
-    h1, h2, h3, h4 {
-      font-family: 'DM Serif Display', serif;
-      line-height: 1.2;
-    }
+    h1, h2, h3, h4 { font-family: 'DM Serif Display', serif; line-height: 1.2; }
 
     .label {
       font-size: 0.7rem;
@@ -107,31 +88,82 @@
       color: var(--text-muted);
     }
 
-    a {
-      color: var(--accent-blue);
-      text-decoration: none;
-      transition: color var(--transition);
-    }
+    a { color: var(--accent-blue); text-decoration: none; transition: color var(--transition); }
     a:hover { color: var(--accent-teal); text-decoration: underline; }
 
     /* ============================================================
-       HEADER
+       NAVIGATION BAR
     ============================================================ */
-    .site-header {
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      height: var(--nav-height);
+      padding: 0 24px;
+      background: rgba(10, 14, 26, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .site-nav .nav-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+    .site-nav .nav-brand span { color: var(--accent-teal); }
+    .site-nav .nav-brand:hover { text-decoration: none; color: var(--text-primary); }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 99px;
+      transition: all var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: rgba(91,140,255,0.1);
+      text-decoration: none;
+    }
+
+    @media (max-width: 780px) {
+      .site-nav { flex-wrap: wrap; height: auto; padding: 12px 20px; }
+      .nav-links { width: 100%; justify-content: flex-start; gap: 2px; }
+      .nav-links a { padding: 6px 9px; font-size: 0.76rem; }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
       text-align: center;
-      padding: 72px 20px 56px;
+      padding: 68px 20px 48px;
       position: relative;
     }
 
-    /* Glowing orb behind the title */
-    .site-header::before {
+    .hero::before {
       content: '';
       position: absolute;
-      top: 40px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 420px;
-      height: 220px;
+      width: 460px;
+      height: 240px;
       background: radial-gradient(ellipse at center,
         rgba(91, 140, 255, 0.18) 0%,
         rgba(167, 139, 250, 0.10) 45%,
@@ -140,7 +172,7 @@
       border-radius: 50%;
     }
 
-    .site-header .eyebrow {
+    .hero .eyebrow {
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.18em;
@@ -149,62 +181,443 @@
       margin-bottom: 16px;
     }
 
-    .site-header h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 4.4rem);
       color: var(--text-primary);
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
-    .site-header h1 span {
-      /* The word "Progress" gets an accent color */
+    .hero .hero-subtitle {
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
       color: var(--accent-blue);
+      font-weight: 500;
+      margin-bottom: 22px;
     }
 
-    .site-header .subtitle {
-      font-size: 1rem;
+    .hero .hero-desc {
+      max-width: 620px;
+      margin: 0 auto 20px;
+      font-size: 0.98rem;
       color: var(--text-secondary);
-      margin-bottom: 20px;
-      font-weight: 300;
+      line-height: 1.8;
     }
 
-    .site-header .intro {
-      max-width: 580px;
-      margin: 0 auto;
-      font-size: 0.92rem;
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03);
-      border-radius: var(--radius-card);
-      padding: 18px 24px;
-      line-height: 1.75;
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
     }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: 99px;
+      transition: all var(--transition);
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .btn:hover { text-decoration: none; }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: #061021;
+    }
+    .btn-primary:hover { background: var(--accent-teal); color: #061021; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); border-color: var(--accent-blue); }
 
     /* ============================================================
-       SECTION LABEL / DIVIDER
+       SECTION HEADER / DIVIDER
     ============================================================ */
     .section-header {
       display: flex;
       align-items: center;
       gap: 14px;
-      margin: 52px 0 22px;
+      margin: 56px 0 22px;
+    }
+    .section-header .section-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .section-header h2 { font-size: 1.55rem; color: var(--text-primary); }
+    .section-header::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .section-lede {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      max-width: 700px;
+      margin: -8px 0 26px;
+      line-height: 1.75;
     }
 
-    .section-header .section-icon {
-      font-size: 1.3rem;
+    /* ============================================================
+       GENERIC CARD GRID
+    ============================================================ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 700px) { .card-grid { grid-template-columns: 1fr; } }
+
+    .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) { .card-grid.cols-3 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .card-grid.cols-3 { grid-template-columns: 1fr; } }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition);
+    }
+    .info-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+
+    .info-card .card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .info-card h3 {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+    .info-card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
+
+    .question-card .q-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.78rem;
+      color: var(--accent-violet);
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================================
+       TEAM SECTION
+    ============================================================ */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .team-grid { grid-template-columns: 1fr; } }
+
+    .team-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 22px;
+      text-align: left;
+      transition: all var(--transition);
+    }
+    .team-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+
+    .team-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: #061021;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-teal));
+    }
+    .team-card.advisor .team-avatar { background: linear-gradient(135deg, var(--accent-violet), var(--accent-amber)); }
+
+    .team-card h3 { font-size: 1.02rem; color: var(--text-primary); font-weight: 400; margin-bottom: 2px; }
+    .team-card .team-role {
+      font-size: 0.72rem;
+      color: var(--accent-teal);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .team-card.advisor .team-role { color: var(--accent-amber); }
+    .team-card p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.65; }
+
+    /* ============================================================
+       VIDEO CARDS
+    ============================================================ */
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 760px) { .video-grid { grid-template-columns: 1fr; } }
+
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .video-card h3 { font-size: 1.05rem; color: var(--text-primary); margin-bottom: 8px; font-weight: 400; }
+    .video-card .video-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-amber);
+      background: rgba(251,191,36,0.1);
+      border: 1px solid rgba(251,191,36,0.25);
+      border-radius: 99px;
+      padding: 3px 11px;
+      margin-bottom: 12px;
+    }
+    .video-card p { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px; }
+
+    .video-frame {
+      width: 100%;
+      height: 240px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: #000;
+      display: block;
+      object-fit: cover;
+      margin-top: auto;
+      margin-bottom: 12px;
+    }
+
+    .video-fallback {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================================
+       UI GALLERY
+    ============================================================ */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+    .gallery-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      min-height: 100%;
+      width: 100%;
+    }
+    .gallery-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .gallery-card:focus-visible {
+      outline: 2px solid var(--accent-teal);
+      outline-offset: 2px;
+    }
+
+    .gallery-image-wrap {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border-bottom: 1px solid var(--border);
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+      height: 280px;
       flex-shrink: 0;
     }
-
-    .section-header h2 {
-      font-size: 1.5rem;
-      color: var(--text-primary);
+    .gallery-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 320px;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #f5f7fc;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
     }
 
-    .section-header::after {
-      content: '';
+    .gallery-placeholder {
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      color: var(--text-muted);
+      text-align: center;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      background: repeating-linear-gradient(
+        135deg,
+        rgba(255,255,255,0.015),
+        rgba(255,255,255,0.015) 10px,
+        transparent 10px,
+        transparent 20px
+      );
+    }
+    .gallery-placeholder strong { display: block; color: var(--text-secondary); margin-bottom: 4px; font-size: 0.88rem; }
+
+    .gallery-caption {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
       flex: 1;
-      height: 1px;
-      background: var(--border);
+      justify-content: flex-start;
     }
+    .gallery-caption h3 {
+      font-size: 0.96rem;
+      color: var(--text-primary);
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+    .gallery-caption p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .image-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(3, 7, 18, 0.86);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .image-modal.is-open {
+      display: flex;
+    }
+    body.modal-open {
+      overflow: hidden;
+    }
+    .image-modal-dialog {
+      width: min(1100px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-hover);
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      padding: 18px;
+      position: relative;
+    }
+    .image-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .image-modal-frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f7fc;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .image-modal-frame img {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+      border-radius: 8px;
+    }
+    .image-modal-caption h3 {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .image-modal-caption p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       RESOURCE / DELIVERABLE GRID
+    ============================================================ */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 900px) { .resource-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .resource-grid { grid-template-columns: 1fr; } }
+
+    .resource-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      color: var(--text-primary);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+    .resource-item:hover {
+      border-color: var(--accent-blue);
+      background: rgba(91,140,255,0.08);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+    .resource-item .r-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .resource-item .r-text { display: flex; flex-direction: column; gap: 2px; }
+    .resource-item .r-text small { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
+
+    /* ============================================================
+       USER TESTING SECTION
+    ============================================================ */
+    .testing-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+    }
+    .testing-panel p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .testing-links { display: flex; flex-wrap: wrap; gap: 12px; }
 
     /* ============================================================
        RESEARCH OVERVIEW CARD
@@ -219,25 +632,11 @@
       grid-template-columns: 1fr 1fr;
       gap: 24px 32px;
     }
+    @media (max-width: 600px) { .overview-card { grid-template-columns: 1fr; } }
 
-    @media (max-width: 600px) {
-      .overview-card { grid-template-columns: 1fr; }
-    }
-
-    .overview-field {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
+    .overview-field { display: flex; flex-direction: column; gap: 5px; }
     .overview-field .label { color: var(--accent-violet); }
-
-    .overview-field .value {
-      font-size: 0.98rem;
-      color: var(--text-primary);
-    }
-
-    /* The "Current Status" field spans full width */
+    .overview-field .value { font-size: 0.98rem; color: var(--text-primary); }
     .overview-field.full-width { grid-column: 1 / -1; }
 
     .status-badge {
@@ -252,7 +651,6 @@
       color: var(--accent-teal);
       border: 1px solid rgba(56, 217, 192, 0.25);
     }
-
     .status-badge::before {
       content: '';
       width: 7px;
@@ -261,7 +659,6 @@
       background: var(--accent-teal);
       animation: pulse 2s infinite;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50%       { opacity: 0.5; transform: scale(0.7); }
@@ -270,10 +667,7 @@
     /* ============================================================
        TIMELINE BAR
     ============================================================ */
-    .timeline-section {
-      margin: 52px 0 28px;
-    }
-
+    .timeline-section { margin: 52px 0 28px; }
     .timeline-label {
       font-size: 0.75rem;
       font-weight: 600;
@@ -282,13 +676,7 @@
       color: var(--text-muted);
       margin-bottom: 12px;
     }
-
-    .timeline-bar {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
-
+    .timeline-bar { display: flex; gap: 4px; align-items: center; }
     .timeline-bar .t-seg {
       flex: 1;
       height: 6px;
@@ -298,40 +686,18 @@
       transition: background var(--transition);
       position: relative;
     }
-
-    /* ============================================================
-       Color each segment by status.
-       To change a week's status color, find the data-status attribute
-       on the matching .t-seg element and change its value.
-       Options: "not-started" | "in-progress" | "completed"
-    ============================================================ */
     .t-seg[data-status="completed"]   { background: var(--accent-teal); border-color: var(--accent-teal); }
     .t-seg[data-status="in-progress"] { background: var(--accent-amber); border-color: var(--accent-amber); }
     .t-seg[data-status="not-started"] { background: var(--bg-card); }
 
-    .timeline-weeks {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 8px;
-    }
-
-    .timeline-weeks span {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      flex: 1;
-      text-align: center;
-    }
+    .timeline-weeks { display: flex; justify-content: space-between; margin-top: 8px; }
+    .timeline-weeks span { font-size: 0.68rem; color: var(--text-muted); flex: 1; text-align: center; }
 
     /* ============================================================
        WEEK FOLDER CARDS
     ============================================================ */
-    .weeks-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .weeks-grid { display: flex; flex-direction: column; gap: 10px; }
 
-    /* ------ The clickable "folder" header ------ */
     .week-item {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -340,16 +706,8 @@
       box-shadow: var(--shadow-card);
       transition: border-color var(--transition), box-shadow var(--transition);
     }
-
-    .week-item:hover {
-      border-color: var(--border-hover);
-      box-shadow: 0 6px 32px rgba(91,140,255,0.10);
-    }
-
-    .week-item.open {
-      border-color: var(--accent-blue);
-      box-shadow: 0 6px 32px rgba(91,140,255,0.18);
-    }
+    .week-item:hover { border-color: var(--border-hover); box-shadow: 0 6px 32px rgba(91,140,255,0.10); }
+    .week-item.open { border-color: var(--accent-blue); box-shadow: 0 6px 32px rgba(91,140,255,0.18); }
 
     .week-header {
       display: flex;
@@ -360,34 +718,13 @@
       user-select: none;
       -webkit-user-select: none;
     }
-
-    /* Only week cards marked as .openable should be clickable */
     .week-item.openable .week-header { cursor: pointer; }
 
-    .week-icon {
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      transition: transform var(--transition);
-    }
-
+    .week-icon { font-size: 1.4rem; flex-shrink: 0; transition: transform var(--transition); }
     .week-item.open .week-icon { transform: rotate(-20deg); }
 
-    .week-meta {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .week-meta .week-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem;
-      color: var(--text-primary);
-    }
-
-    /* ============================================================
-       EDIT THIS: Week focus teaser line shown on the folder header.
-       Find the <span class="week-focus-preview"> inside each week-header
-       and update the text to match that week's topic.
-    ============================================================ */
+    .week-meta { flex: 1; min-width: 0; }
+    .week-meta .week-num { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text-primary); }
     .week-meta .week-focus-preview {
       font-size: 0.8rem;
       color: var(--text-secondary);
@@ -404,8 +741,6 @@
       border-radius: 99px;
       letter-spacing: 0.04em;
     }
-
-    /* Status badge colors */
     .week-status-badge.not-started {
       background: rgba(74, 84, 112, 0.3);
       color: var(--text-muted);
@@ -422,21 +757,10 @@
       border: 1px solid rgba(56,217,192, 0.25);
     }
 
-    /* Arrow chevron */
-    .week-chevron {
-      flex-shrink: 0;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      transition: transform var(--transition);
-    }
+    .week-chevron { flex-shrink: 0; font-size: 0.9rem; color: var(--text-muted); transition: transform var(--transition); }
     .week-item.open .week-chevron { transform: rotate(180deg); }
 
-    /* ------ The expandable content panel ------ */
-    .week-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    .week-body { max-height: 0; overflow: hidden; transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1); }
 
     .week-body-inner {
       border-top: 1px solid var(--border);
@@ -445,39 +769,16 @@
       grid-template-columns: 1fr 1fr;
       gap: 24px 32px;
     }
+    @media (max-width: 620px) { .week-body-inner { grid-template-columns: 1fr; } }
 
-    @media (max-width: 620px) {
-      .week-body-inner { grid-template-columns: 1fr; }
-    }
-
-    /* ------ Report fields inside the panel ------ */
     .report-field { display: flex; flex-direction: column; gap: 6px; }
-
     .report-field .label { color: var(--accent-blue); }
+    .report-field p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
 
-    .report-field p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
+    .files-section { grid-column: 1 / -1; margin-top: 6px; }
+    .files-section .label { color: var(--accent-teal); margin-bottom: 10px; }
 
-    /* Files section inside each week */
-    .files-section {
-      grid-column: 1 / -1;
-      margin-top: 6px;
-    }
-
-    .files-section .label {
-      color: var(--accent-teal);
-      margin-bottom: 10px;
-    }
-
-    .files-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
+    .files-grid { display: flex; flex-wrap: wrap; gap: 8px; }
     .file-link {
       display: inline-flex;
       align-items: center;
@@ -490,7 +791,6 @@
       color: var(--text-secondary);
       transition: all var(--transition);
     }
-
     .file-link:hover {
       background: rgba(91,140,255,0.1);
       border-color: var(--accent-blue);
@@ -498,11 +798,7 @@
       text-decoration: none;
     }
 
-    .test-run-media {
-      grid-column: 1 / -1;
-      margin: 4px 0 8px;
-    }
-
+    .test-run-media { grid-column: 1 / -1; margin: 4px 0 8px; }
     .test-run-media video {
       display: block;
       width: 100%;
@@ -511,75 +807,7 @@
       border-radius: var(--radius-sm);
       background: #000;
     }
-
-    .test-run-media figcaption {
-      margin-top: 8px;
-      color: var(--text-secondary);
-      font-size: 0.82rem;
-      line-height: 1.5;
-    }
-
-    .video-placeholder {
-      min-height: 260px;
-      display: grid;
-      place-items: center;
-      padding: 32px;
-      border: 1px dashed var(--border);
-      border-radius: var(--radius-sm);
-      background: rgba(255,255,255,0.025);
-      color: var(--text-secondary);
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    .video-placeholder strong {
-      display: block;
-      color: var(--text-primary);
-      font-size: 1rem;
-      margin-bottom: 5px;
-    }
-
-    /* ============================================================
-       NOTE CARD  (file organization instructions)
-    ============================================================ */
-    .note-card {
-      margin-top: 44px;
-      background: rgba(167,139,250, 0.06);
-      border: 1px solid rgba(167,139,250, 0.2);
-      border-radius: var(--radius-card);
-      padding: 24px 28px;
-    }
-
-    .note-card .note-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      color: var(--accent-violet);
-      margin-bottom: 10px;
-    }
-
-    .note-card ol {
-      padding-left: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .note-card li {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-    }
-
-    .note-card code {
-      font-family: 'Courier New', monospace;
-      font-size: 0.82rem;
-      background: rgba(255,255,255,0.07);
-      padding: 1px 6px;
-      border-radius: 4px;
-      color: var(--accent-teal);
-    }
+    .test-run-media figcaption { margin-top: 8px; color: var(--text-secondary); font-size: 0.82rem; line-height: 1.5; }
 
     /* ============================================================
        FOOTER
@@ -593,9 +821,6 @@
       color: var(--text-muted);
     }
 
-    /* ============================================================
-       RESPONSIVE TWEAKS
-    ============================================================ */
     @media (max-width: 480px) {
       .week-header { padding: 14px 16px; gap: 10px; }
       .week-body-inner { padding: 18px 16px 22px; }
@@ -605,39 +830,288 @@
 </head>
 
 <body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="site-nav">
+    <a href="#home" class="nav-brand">CLONE</a>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#project">Project</a>
+      <a href="#team">Team</a>
+      <a href="#demos">Demo Videos</a>
+      <a href="#gallery">UI Gallery</a>
+      <a href="#resources">Resources</a>
+      <a href="#progress">Progress Archive</a>
+    </div>
+  </nav>
+
   <div class="page-wrapper">
 
     <!-- ============================================================
-         HEADER
+         HERO / MAIN PAGE SECTION
     ============================================================ -->
-    <header class="site-header">
-      <p class="eyebrow">Summer 2026 Research</p>
+    <header class="hero" id="home">
+      <h1>CLONE</h1>
+      <p class="hero-subtitle">AI-Assisted IntelliJ Plugin for Clone Refactoring</p>
 
-      <h1>Research <span>Progress</span> Hub</h1>
-
-      <p class="subtitle">Weekly updates, reports, slides, and documentation</p>
-
-      <!-- EDIT THIS: update the intro text to describe your research program -->
-      <p class="intro">
-        This site tracks our team's research progress. Each week, we log our focus
-        areas, accomplishments, challenges, and next steps — and link to our reports,
-        slides, and data. Use the week folders below to navigate to any week's materials.
+      <p class="hero-desc">
+        CLONE helps Java developers detect duplicated code introduced through copy-and-paste,
+        review an Extract Method refactoring, check the validation evidence behind it, and
+        apply the change only when they are confident it is correct.
       </p>
+
+      <div class="hero-actions">
+        <a href="#demos" class="btn btn-primary">Watch the demo</a>
+        <a href="final/final-report.pdf" class="btn btn-secondary">Read the final report</a>
+        <a href="https://github.com/refactorings/anti-copy-paster" class="btn btn-secondary">View on GitHub</a>
+      </div>
     </header>
+
+
+    <!-- ============================================================
+         PROJECT OVERVIEW / ABOUT CLONE
+    ============================================================ -->
+    <div id="project">
+      <div class="section-header">
+        <h2>About CLONE</h2>
+      </div>
+      <p class="section-lede">
+        Duplicated Java code often appears when a developer copies and pastes existing logic
+        instead of extracting it into a shared method. Once duplication exists, every future
+        change to that logic has to be repeated in each copy, which makes the codebase harder
+        to maintain and easier to get wrong. CLONE detects duplication at the moment it is
+        introduced and proposes an Extract Method refactoring to remove it, showing the developer
+        what was found, what will change, and the evidence behind the suggestion before anything
+        is applied.
+      </p>
+    </div>
+
+
+    <!-- ============================================================
+         TEAM
+    ============================================================ -->
+    <div id="team">
+      <div class="section-header">
+        <h2>Team</h2>
+      </div>
+      <p class="section-lede">
+        CLONE was built by a five-person research team, advised by Dr. Eman AlOmar in the
+        Systems Engineering department.
+      </p>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">AD</div>
+          <h3>Amaro Da Luz</h3>
+          <span class="team-role">Website &amp; Documentation</span>
+          <p>Website organization, documentation, the explanation section, problem statement, header and abstract writing, project files, testing support, and final website updates.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">DR</div>
+          <h3>Dhir Rana</h3>
+          <span class="team-role">AI Trust &amp; Validation</span>
+          <p>AI Trust and validation feature, trust evidence design, the New Features writing, and validation-related documentation.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">FN</div>
+          <h3>Fintan Naughton</h3>
+          <span class="team-role">Developer Controls</span>
+          <p>Action buttons, the apply/edit/cancel workflow, developer control behavior, and button issue fixes, with Juliana's help.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">JS</div>
+          <h3>Jake Stinton</h3>
+          <span class="team-role">Clone Occurrences</span>
+          <p>Introduction writing, multiple clone occurrences and cards, include/exclude/inspect behavior, and clone-scope review.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">JP</div>
+          <h3>Juliana Pimentel</h3>
+          <span class="team-role">Diff Preview &amp; Testing</span>
+          <p>Diff preview, UI testing, screen recording, IntelliJ light-mode screenshots, button issue support, and final tool verification.</p>
+        </div>
+        <div class="team-card advisor">
+          <div class="team-avatar">EA</div>
+          <h3>Dr. Eman AlOmar</h3>
+          <span class="team-role">Research Advisor</span>
+          <p>Guided the research direction, provided feedback on the demo and paper, shared reference material, and supported user testing design.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         DEMO VIDEOS
+    ============================================================ -->
+    <div id="demos">
+      <div class="section-header">
+        <h2>Demo Videos</h2>
+      </div>
+      <p class="section-lede">
+        Two recordings walk through the CLONE workflow: a short version for a quick look,
+        and a long version that covers the full review and validation process.
+      </p>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <span class="video-tag">Short Demo</span>
+          <h3>Short Demo: End-to-End CLONE Workflow</h3>
+          <p>A 2–3 minute demo showing a natural copy/paste duplication, CLONE detection, occurrence selection, diff review, validation evidence, Apply, the changed source code, passing tests, and one control/safety case.</p>
+          <!-- EDIT THIS: replace with the real short demo file once recorded -->
+          <video class="video-frame" controls src="videos/short-demo.mp4">
+            Your browser does not support embedded video.
+          </video>
+          <span class="video-fallback"><a href="videos/short-demo.mp4">Open short-demo.mp4</a></span>
+        </div>
+
+        <div class="video-card">
+          <span class="video-tag">Long Demo</span>
+          <h3>Long Demo: Full CLONE Review and Validation Walkthrough</h3>
+          <p>A 7–10 minute walkthrough covering clone detection, occurrence inspection, diff review, trust evidence, the Apply/Edit/Cancel/Help controls, build and test verification, and developer control.</p>
+          <!-- EDIT THIS: replace with the real long demo file once recorded -->
+          <video class="video-frame" controls src="videos/long-demo.mp4">
+            Your browser does not support embedded video.
+          </video>
+          <span class="video-fallback"><a href="videos/long-demo.mp4">Open long-demo.mp4</a></span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         UI GALLERY / SCREEN CAPTURES
+         EDIT: replace each gallery-placeholder with an <img> once
+         screenshots exist, e.g.
+         <img src="images/full-clone-panel.png" alt="Full CLONE panel" />
+    ============================================================ -->
+    <div id="gallery">
+      <div class="section-header">
+        <h2>UI Gallery</h2>
+      </div>
+      <p class="section-lede">
+        Screenshots of the CLONE panel inside IntelliJ, captured in light mode. Click on each card image to expand.
+      </p>
+
+      <div class="gallery-grid">
+        <button class="gallery-card" type="button" data-image="images/full-clone-panel.png" data-title="Full CLONE Panel" data-description="Full IntelliJ panel showing explanation, diff, validation, and actions together.">
+          <div class="gallery-image-wrap">
+            <img src="images/full-clone-panel.png" alt="Full CLONE panel in IntelliJ" />
+          </div>
+          <div class="gallery-caption">
+            <h3>Full CLONE Panel</h3>
+            <p>Full IntelliJ panel showing explanation, diff, validation, and actions together.</p>
+          </div>
+        </button>
+
+        <button class="gallery-card" type="button" data-image="images/clone-occurrence-dialog.png" data-title="Clone Occurrence Dialog" data-description="Occurrence selection view where developers can include, exclude, or inspect detected clones.">
+          <div class="gallery-image-wrap">
+            <img src="images/clone-occurrence-dialog.png" alt="Clone occurrence selection dialog" />
+          </div>
+          <div class="gallery-caption">
+            <h3>Clone Occurrence Dialog</h3>
+            <p>Occurrence selection view where developers can include, exclude, or inspect detected clones.</p>
+          </div>
+        </button>
+
+        <button class="gallery-card" type="button" data-image="images/diff-preview.png" data-title="Diff Preview" data-description="Before-and-after code comparison showing the proposed Extract Method refactoring.">
+          <div class="gallery-image-wrap">
+            <img src="images/diff-preview.png" alt="Diff preview for the proposed refactoring" />
+          </div>
+          <div class="gallery-caption">
+            <h3>Diff Preview</h3>
+            <p>Before-and-after code comparison showing the proposed Extract Method refactoring.</p>
+          </div>
+        </button>
+
+        <button class="gallery-card" type="button" data-image="images/ai-trust-validation.png" data-title="AI Trust Validation" data-description="Validation evidence from clone detection, refactoring, usefulness, compilation, and tests.">
+          <div class="gallery-image-wrap">
+            <img src="images/ai-trust-validation.png" alt="AI trust and validation evidence panel" />
+          </div>
+          <div class="gallery-caption">
+            <h3>AI Trust Validation</h3>
+            <p>Validation evidence from clone detection, refactoring, usefulness, compilation, and tests.</p>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <div class="image-modal" id="imageModal" role="dialog" aria-modal="true" aria-label="Expanded screenshot">
+      <div class="image-modal-dialog">
+        <button class="image-modal-close" type="button" aria-label="Close preview">×</button>
+        <div class="image-modal-frame">
+          <img id="modalImage" src="" alt="Expanded screenshot preview" />
+        </div>
+        <div class="image-modal-caption">
+          <h3 id="modalTitle"></h3>
+          <p id="modalDescription"></p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         USER TESTING / FEEDBACK
+         EDIT: replace the Google Form placeholder link once created.
+    ============================================================ -->
+    <div id="testing">
+      <div class="section-header">
+        <h2>User Testing</h2>
+      </div>
+
+      <div class="testing-panel">
+        <p>
+          The team prepared a standardized instruction sheet and a Google Form for people
+          testing the CLONE plugin. Testers use a small duplicated Java code example, since
+          the plugin relies on API tokens during detection, refactoring, validation, and
+          testing. Each team member is finding two to three users to test the plugin and
+          submit feedback, which will be summarized into graphs for the final report.
+        </p>
+        <div class="testing-links">
+          <a class="resource-item" href="resources/user-testing-instructions.pdf"><span class="r-text">Testing Instructions<small>PDF</small></span></a>
+          <a class="resource-item" href="https://forms.cloud.microsoft/r/BL5ptNQEjb?origin=lprLink "><span class="r-text">Feedback Form<small>Google Form</small></span></a>
+          <a class="resource-item" href="resources/user-feedback-results.pdf"><span class="r-text">Feedback Results<small>PDF, coming soon</small></span></a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         RESOURCES
+    ============================================================ -->
+    <div id="resources">
+      <div class="section-header">
+        <h2>Resources</h2>
+      </div>
+
+      <div class="resource-grid">
+        <a class="resource-item" href="final/final-report.pdf"><span class="r-text">Final Report</span></a>
+        <a class="resource-item" href="final/final-slides.pdf"><span class="r-text">Final Slides</span></a>
+        <a class="resource-item" href="videos/long-demo.mp4"><span class="r-text">Long Demo Video</span></a>
+        <a class="resource-item" href="videos/short-demo.mp4"><span class="r-text">Short Demo Video</span></a>
+        <a class="resource-item" href="https://github.com/refactorings/anti-copy-paster"><span class="r-text">GitHub Repository</span></a>
+        <!-- EDIT THIS: replace # with the real Overleaf link once ready -->
+        <a class="resource-item" href="#"><span class="r-text">Overleaf Draft</span></a>
+        <a class="resource-item" href="https://forms.cloud.microsoft/r/BL5ptNQEjb?origin=lprLink "><span class="r-text">User Testing Form</span></a>
+        <a class="resource-item" href="resources/user-testing-instructions.pdf"><span class="r-text">User Testing Instructions</span></a>
+        <a class="resource-item" href="resources/README_with_clone_ui_section.md"><span class="r-text">README / Documentation</span></a>
+      </div>
+    </div>
 
 
     <!-- ============================================================
          RESEARCH OVERVIEW
     ============================================================ -->
-    <div class="section-header">
+    <div class="section-header" id="progress">
       <h2>Research Overview</h2>
     </div>
 
     <div class="overview-card">
-
       <div class="overview-field">
         <span class="label">Project Title</span>
-        <span class="value">AntiCopyPaster</span>
+        <span class="value">CLONE: AI-Assisted IntelliJ Plugin for Clone Refactoring</span>
       </div>
 
       <div class="overview-field">
@@ -650,24 +1124,19 @@
         <span class="value">Amaro Da Luz · Dhir Rana · Fintan Naughton · Jake Stinton · Juliana Pimentel</span>
       </div>
 
-      <div class="overview-field">
-        <span class="label">Program / Institution</span>
-        <span class="value">Stevens Institute of Technology — Summer Research 2026</span>
-      </div>
 
       <div class="overview-field full-width">
         <span class="label">Research Goal</span>
         <span class="value">
-          Improve the UI and user experience of the AntiCopyPaster tool.
+          Improve how developers understand, review, validate, and control AI-assisted Extract Method refactorings for duplicated Java code.
         </span>
       </div>
 
       <div class="overview-field full-width">
         <span class="label">Current Status</span>
         <!-- EDIT THIS: Update this badge text as the program progresses -->
-        <span class="status-badge">In Progress - Week 8 of 10</span>
+        <span class="status-badge">Final documentation, demo recording, and user testing in progress</span>
       </div>
-
     </div>
 
 
@@ -680,18 +1149,17 @@
            "not-started" → grey
     ============================================================ -->
     <div class="timeline-section">
-      <p class="timeline-label"> 10-Week Research Timeline</p>
+      <p class="timeline-label">10-Week Research Timeline</p>
       <div class="timeline-bar" id="timelineBar">
-        <!-- EDIT THIS: update data-status on each segment to match each week's progress -->
         <div class="t-seg" data-status="completed"    title="Week 1"></div>
         <div class="t-seg" data-status="completed"    title="Week 2"></div>
         <div class="t-seg" data-status="completed"    title="Week 3"></div>
-        <div class="t-seg" data-status="completed"  title="Week 4"></div>
-        <div class="t-seg" data-status="completed"  title="Week 5"></div>
-        <div class="t-seg" data-status="completed"  title="Week 6"></div>
-        <div class="t-seg" data-status="completed"  title="Week 7"></div>
-        <div class="t-seg" data-status="in-progress"  title="Week 8"></div>
-        <div class="t-seg" data-status="not-started"  title="Week 9"></div>
+        <div class="t-seg" data-status="completed"    title="Week 4"></div>
+        <div class="t-seg" data-status="completed"    title="Week 5"></div>
+        <div class="t-seg" data-status="completed"    title="Week 6"></div>
+        <div class="t-seg" data-status="completed"    title="Week 7"></div>
+        <div class="t-seg" data-status="completed"    title="Week 8"></div>
+        <div class="t-seg" data-status="in-progress"  title="Week 9"></div>
         <div class="t-seg" data-status="not-started"  title="Week 10"></div>
       </div>
       <div class="timeline-weeks">
@@ -702,85 +1170,54 @@
 
 
     <!-- ============================================================
-         10-WEEK PROGRESS FOLDERS
-         Each .week-item is one "folder" card.
-         Click the header to open/close it.
+         PROGRESS ARCHIVE (formerly "Weekly Progress")
     ============================================================ -->
     <div class="section-header">
-      <h2>Weekly Progress</h2>
+      <h2>Progress Archive</h2>
     </div>
 
     <div class="weeks-grid" id="weeksGrid">
 
-      <!--
-        ============================================================
-        HOW TO EDIT EACH WEEK:
-        1. Find the week you want to update (e.g., "Week 1").
-        2. Update the week-focus-preview span (the short teaser shown on the folder).
-        3. Update the status badge class: not-started | in-progress | completed
-           AND change the badge text to match.
-        4. Inside the week-body, fill in each report-field > p with real content.
-        5. Update the file links (href="...") to point to your actual files.
-        ============================================================
-      -->
-
-
       <!-- ===== WEEK 1 ===== -->
       <div class="week-item openable" data-week="1">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 1</div>
-            <!-- EDIT THIS: short summary of the week's focus, shown on the folder tab -->
             <div class="week-focus-preview">Orientation, code review, and project setup</div>
           </div>
-          <!-- EDIT THIS: change class + text to: not-started | in-progress | completed -->
           <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
 
         <div class="week-body">
           <div class="week-body-inner">
-
             <div class="report-field">
               <span class="label">Week Focus</span>
-              <!-- EDIT THIS -->
               <p>Orientation to the research group, getting access to tools and systems, initial code review.</p>
             </div>
-
             <div class="report-field">
               <span class="label">Summary of Progress</span>
-              <!-- EDIT THIS -->
               <p>The team got familiar with the research tools and systems. Discussed the current research direction and goals (UI improvements). And created prototypes for the new UI elements.</p>
             </div>
-
             <div class="report-field">
               <span class="label">Key Accomplishments</span>
-              <!-- EDIT THIS -->
               <p>- Familiarized with Github and Anticopypaster Agents</p>
               <p>- Discussed design elements and user needs</p>
               <p>- Created prototypes and chose the initial design direction</p>
               <p>- Created a Website to track progress</p>
             </div>
-
             <div class="report-field">
               <span class="label">Challenges &amp; Blockers</span>
-              <!-- EDIT THIS -->
               <p>The team didn't encounter any major challenges this week.</p>
             </div>
-
             <div class="report-field full-width" style="grid-column: 1 / -1;">
               <span class="label">Next Steps</span>
-              <!-- EDIT THIS -->
               <p>- Continue getting familiarized with the code and other tools. </p>
               <p>- Polish and start implementing the chosen design direction. </p>
             </div>
-
-            <!-- Files for Week 1 -->
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <!-- EDIT THIS: update href values once you add real files -->
                 <a class="file-link" href="week1/report.pdf"    target="_blank">Weekly Report</a>
                 <a class="file-link" href="week1/slides.pdf"    target="_blank">Slides</a>
                 <a class="file-link" href="week1/notes.pdf"     target="_blank">Meeting Notes</a>
@@ -789,16 +1226,14 @@
                 <a class="file-link" href="week1/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
-
-          </div><!-- /week-body-inner -->
-        </div><!-- /week-body -->
-      </div><!-- /week-item week 1 -->
+          </div>
+        </div>
+      </div>
 
 
       <!-- ===== WEEK 2 ===== -->
       <div class="week-item openable" data-week="2">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 2</div>
             <div class="week-focus-preview">Agent understanding, prototypes, and team workflow setup</div>
@@ -814,7 +1249,7 @@
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>The confidence score calculation still needed to be defined, including how to factor in usefulness, compilation, testing agents, and refactoring count. The team also needed more hands-on testing with the AntiCopyPaster tool and more exploration of IntelliJ's UI patterns.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Brainstorm confidence score logic, run and test the AntiCopyPaster tool, add team member work and resources to the website and OneDrive, review the Gemini API setup and tool demo videos, and refine the UI prototype to better match IntelliJ design conventions.</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
                 <a class="file-link" href="week2/report.pdf"     target="_blank">Weekly Report</a>
                 <a class="file-link" href="week2/slides.pdf"     target="_blank">Slides</a>
@@ -832,7 +1267,6 @@
       <!-- ===== WEEK 3 ===== -->
       <div class="week-item openable" data-week="3">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 3</div>
             <div class="week-focus-preview">UI panel work, log review, and confidence score updates</div>
@@ -866,7 +1300,6 @@
       <!-- ===== WEEK 4 ===== -->
       <div class="week-item openable" data-week="4">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 4</div>
             <div class="week-focus-preview">IntelliJ-style UI design, multiple-clone cards, and implementation planning</div>
@@ -900,7 +1333,6 @@
       <!-- ===== WEEK 5 ===== -->
       <div class="week-item openable" data-week="5">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 5</div>
             <div class="week-focus-preview">UI panel implementation, clone-level controls, and pull request workflow</div>
@@ -933,7 +1365,6 @@
       <!-- ===== WEEK 6 ===== -->
       <div class="week-item openable" data-week="6">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 6</div>
             <div class="week-focus-preview">Pull request reviews, UI integration, and initial testing</div>
@@ -955,8 +1386,7 @@
                 <a class="file-link" href="week6/slides.pdf"     target="_blank">Slides</a>
                 <a class="file-link" href="week6/notes.pdf"      target="_blank">Notes</a>
                 <a class="file-link" href="week6/collaborators.pdf" target="_blank">Collaborators</a>
-                <a class="file-link" href="week6/results.
-pdf"    target="_blank">UI changes</a>
+                <a class="file-link" href="week6/results.pdf"    target="_blank">UI changes</a>
               </div>
             </div>
           </div>
@@ -967,7 +1397,6 @@ pdf"    target="_blank">UI changes</a>
       <!-- ===== WEEK 7 ===== -->
       <div class="week-item openable" data-week="7">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 7</div>
             <div class="week-focus-preview">Integrated UI cleanup, Overleaf writing, and user testing prep</div>
@@ -1001,21 +1430,20 @@ pdf"    target="_blank">UI changes</a>
       <!-- ===== WEEK 8 ===== -->
       <div class="week-item openable" data-week="8">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 8</div>
-            <div class="week-focus-preview">Current week - research and project updates in progress</div>
+            <div class="week-focus-preview">Final UI fixes, Overleaf paper expansion, demo recording, and user testing prep</div>
           </div>
-          <span class="week-status-badge in-progress">In Progress</span>
+          <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 8 focus.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 8 summary.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 8 accomplishments.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 8 challenges.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 8 next steps.</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Final UI fixes, Overleaf paper expansion, demo recording, user testing preparation, and final documentation.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>The team showed the completed UI fixes, reviewed progress on the Overleaf paper, and received additional direction from Dr. AlOmar. Dr. AlOmar shared a reference paper that could help guide the final paper. The team also discussed finding users to test the CLONE plugin with the new panel and using a Google Form to collect feedback from testers.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Showed recent UI fixes and confirmed progress toward the final panel.</p><p>- Reviewed Overleaf progress including abstract, introduction, problem statement, and new feature sections.</p><p>- Received a reference paper from Dr. AlOmar to support final report writing.</p><p>- Planned user testing for the CLONE plugin.</p><p>- Created or planned a Google Form for user feedback.</p><p>- Planned screenshots and figures of each new feature in IntelliJ light mode.</p><p>- Planned short and long professional demo videos.</p><p>- Added README documentation describing the CLONE UI improvements.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>- Final three UI issues still needed to be fixed and verified.</p><p>- New Features subsections in Overleaf needed more content.</p><p>- The team needed to run the plugin fully using available API tokens.</p><p>- UI screenshots needed to be captured in IntelliJ light mode.</p><p>- User feedback needed to be collected and converted into graphs for the final report.</p></div>
+            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>- Fix the final three UI issues.</p><p>- Add more content to each Overleaf subsection.</p><p>- Add a workflow section explaining how CLONE works.</p><p>- Add a how-to-use section explaining installation and usage.</p><p>- Add feature screenshots/figures in each corresponding subsection.</p><p>- Each team member should find 2–3 users to test the plugin.</p><p>- Update the Google Form with questions that generate useful feedback graphs.</p><p>- Record the long demo and short demo.</p><p>- Add final report, demo videos, UI screen capture, and resources to the website.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
@@ -1023,8 +1451,10 @@ pdf"    target="_blank">UI changes</a>
                 <a class="file-link" href="week8/slides.pdf"     target="_blank">Slides</a>
                 <a class="file-link" href="week8/notes.pdf"      target="_blank">Notes</a>
                 <a class="file-link" href="week8/results.pdf"    target="_blank">Data / Results</a>
-                <a class="file-link" href="week8/other-docs.pdf" target="_blank">Other Documents</a>
                 <a class="file-link" href="week8/collaborators.pdf" target="_blank">Collaborators</a>
+                <a class="file-link" href="week8/user-testing-instructions.pdf" target="_blank">User Testing Instructions</a>
+                <!-- EDIT THIS: replace with the real Google Form link -->
+                <a class="file-link" href="https://forms.gle/REPLACE_WITH_FORM_LINK" target="_blank">Google Form</a>
               </div>
             </div>
           </div>
@@ -1033,14 +1463,13 @@ pdf"    target="_blank">UI changes</a>
 
 
       <!-- ===== WEEK 9 ===== -->
-      <div class="week-item" data-week="9">
+      <div class="week-item openable" data-week="9">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 9</div>
-            <div class="week-focus-preview">Describe Week 9's focus</div>
+            <div class="week-focus-preview">User testing, demo recording, and final report drafting</div>
           </div>
-          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-status-badge in-progress">In Progress</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
@@ -1069,7 +1498,6 @@ pdf"    target="_blank">UI changes</a>
       <!-- ===== WEEK 10 ===== -->
       <div class="week-item" data-week="10">
         <div class="week-header">
-          <span class="week-icon">📂</span>
           <div class="week-meta">
             <div class="week-num">Week 10</div>
             <div class="week-focus-preview">Final presentations and wrap-up</div>
@@ -1085,14 +1513,14 @@ pdf"    target="_blank">UI changes</a>
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 10 challenges.</p></div>
             <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>What comes after the 10-week program? Future directions?</p></div>
             <div class="files-section">
-              <span class="label">📎 Files &amp; Documents</span>
+              <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week10/report.pdf"     target="_blank">📄 Final Report</a>
+                <a class="file-link" href="week10/report.pdf"     target="_blank">Final Report</a>
                 <a class="file-link" href="week10/slides.pdf"     target="_blank">Final Slides</a>
-                <a class="file-link" href="week10/notes.pdf"      target="_blank">📝 Notes</a>
-                <a class="file-link" href="week10/results.pdf"    target="_blank">📈 Data / Results</a>
-                <a class="file-link" href="week10/other-docs.pdf" target="_blank">📁 Other Documents</a>
-                <a class="file-link" href="week10/collaborators.pdf" target="_blank">🤝 Collaborators</a>
+                <a class="file-link" href="week10/notes.pdf"      target="_blank">Notes</a>
+                <a class="file-link" href="week10/results.pdf"    target="_blank">Data / Results</a>
+                <a class="file-link" href="week10/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week10/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
             </div>
           </div>
@@ -1106,8 +1534,7 @@ pdf"    target="_blank">UI changes</a>
          FOOTER
     ============================================================ -->
     <footer class="site-footer">
-      <!-- EDIT THIS: update the year and names as needed -->
-      Summer Research Progress Hub &nbsp;·&nbsp; Stevens Institute of Technology &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Developed by: Amaro da Luz
+      CLONE Project &nbsp;·&nbsp; Developed by: Amaro da Luz
     </footer>
 
   </div><!-- /page-wrapper -->
@@ -1115,44 +1542,66 @@ pdf"    target="_blank">UI changes</a>
 
   <!-- ============================================================
        JAVASCRIPT
-       This handles:
-       1. Opening and closing week folder cards (accordion behavior).
-       2. Making sure only one week is open at a time.
+       Handles opening/closing week folder cards (accordion behavior),
+       keeping only one week open at a time.
   ============================================================ -->
   <script>
-    // Grab every week card on the page
     const weekItems = document.querySelectorAll('.week-item');
 
     weekItems.forEach(function(item) {
-      // Only attach click handlers to weeks that are explicitly openable
       if (!item.classList.contains('openable')) return;
 
-      // Find the clickable header and the expandable body inside this card
       const header = item.querySelector('.week-header');
       const body   = item.querySelector('.week-body');
 
-      // When the user clicks the folder header...
       header.addEventListener('click', function() {
-
         const isOpen = item.classList.contains('open');
 
-        // ---- Step 1: Close ALL weeks ----
-        // Loop through every week card, remove the "open" class,
-        // and set each panel's max-height back to 0 (collapsed).
         weekItems.forEach(function(otherItem) {
           otherItem.classList.remove('open');
           otherItem.querySelector('.week-body').style.maxHeight = '0px';
         });
 
-        // ---- Step 2: If this week was NOT already open, open it ----
-        // (If it was already open, the step above already closed it — done.)
         if (!isOpen) {
           item.classList.add('open');
-          // Set max-height to the panel's actual scroll height so CSS can animate to it.
-          // scrollHeight gives us the full height of the hidden content.
           body.style.maxHeight = body.scrollHeight + 'px';
         }
       });
+    });
+
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const closeButton = document.querySelector('.image-modal-close');
+
+    document.querySelectorAll('.gallery-card').forEach(card => {
+      card.addEventListener('click', () => {
+        modalImage.src = card.getAttribute('data-image');
+        modalImage.alt = card.querySelector('img').alt;
+        modalTitle.textContent = card.getAttribute('data-title');
+        modalDescription.textContent = card.getAttribute('data-description');
+        modal.classList.add('is-open');
+        document.body.classList.add('modal-open');
+      });
+    });
+
+    const closeModal = () => {
+      modal.classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+    };
+
+    closeButton.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
     });
   </script>
 
