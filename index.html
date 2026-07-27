@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CLONE — AI-Assisted IntelliJ Plugin for Clone Refactoring</title>
 
   <!-- ============================================================
        GOOGLE FONTS
        "DM Serif Display" for headings, "DM Sans" for body.
   ============================================================ -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -162,7 +162,7 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 460px;
+      width: min(460px, calc(100vw - 40px));
       height: 240px;
       background: radial-gradient(ellipse at center,
         rgba(91, 140, 255, 0.18) 0%,
@@ -490,13 +490,16 @@
       flex: 1;
       justify-content: flex-start;
     }
-    .gallery-caption h3 {
+    .gallery-caption .gallery-title {
+      display: block;
+      font-family: 'DM Serif Display', serif;
       font-size: 0.96rem;
       color: var(--text-primary);
       font-weight: 400;
       margin-bottom: 0;
     }
-    .gallery-caption p {
+    .gallery-caption .gallery-description {
+      display: block;
       font-size: 0.82rem;
       color: var(--text-secondary);
       line-height: 1.6;
@@ -772,6 +775,7 @@
     @media (max-width: 620px) { .week-body-inner { grid-template-columns: 1fr; } }
 
     .report-field { display: flex; flex-direction: column; gap: 6px; }
+    .report-field.full-width { grid-column: 1 / -1; }
     .report-field .label { color: var(--accent-blue); }
     .report-field p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
 
@@ -864,7 +868,7 @@
 
       <div class="hero-actions">
         <a href="#demos" class="btn btn-primary">Watch the demo</a>
-        <a href="final/final-report.pdf" class="btn btn-secondary">Read the final report</a>
+        <a href="final/final-report.pdf" class="btn btn-secondary">Research Paper</a>
         <a href="https://github.com/refactorings/anti-copy-paster" class="btn btn-secondary">View on GitHub</a>
       </div>
     </header>
@@ -877,16 +881,14 @@
       <div class="section-header">
         <h2>About CLONE</h2>
       </div>
-      <p class="section-lede">
-        Duplicated Java code often appears when a developer copies and pastes existing logic
-        instead of extracting it into a shared method. Once duplication exists, every future
-        change to that logic has to be repeated in each copy, which makes the codebase harder
-        to maintain and easier to get wrong. CLONE detects duplication at the moment it is
-        introduced and proposes an Extract Method refactoring to remove it, showing the developer
-        what was found, what will change, and the evidence behind the suggestion before anything
-        is applied.
-      </p>
-    </div>
+<p class="section-lede">
+  CLONE is an AI-assisted IntelliJ plugin feature that helps Java developers detect duplicated code introduced through copy-and-paste and review Extract Method refactoring suggestions before applying them. It extends the AntiCopyPaster workflow by adding a clearer review process where the developer can inspect the detected clone, see where it appears, compare the proposed code change, and decide whether the suggestion should be applied. Instead of showing only a generated refactoring result, CLONE presents the clone type, affected locations, selected code ranges, proposed helper method, diff preview, and validation status in one review workflow.
+</p>
+
+<p class="section-lede">
+  The goal of CLONE is to make duplicate-code refactoring more understandable, transparent, and developer-controlled. The interface supports multiple clone occurrences, allowing users to include, exclude, or inspect individual duplicates before continuing. It also provides validation evidence such as clone detection, refactoring generation, usefulness checking, compilation results, and test or behavior-preservation checks. These signals do not guarantee correctness, but they help developers assess whether a suggestion is ready to apply while still keeping the final decision in their hands.
+</p>
+</div>
 
 
     <!-- ============================================================
@@ -959,8 +961,7 @@
           <span class="video-tag">Short Demo</span>
           <h3>Short Demo: End-to-End CLONE Workflow</h3>
           <p>A 2–3 minute demo showing a natural copy/paste duplication, CLONE detection, occurrence selection, diff review, validation evidence, Apply, the changed source code, passing tests, and one control/safety case.</p>
-          <!-- EDIT THIS: replace with the real short demo file once recorded -->
-          <video class="video-frame" controls src="videos/short-demo.mp4">
+          <video class="video-frame" controls preload="metadata" src="videos/short-demo.mp4">
             Your browser does not support embedded video.
           </video>
           <span class="video-fallback"><a href="videos/short-demo.mp4">Open short-demo.mp4</a></span>
@@ -970,8 +971,7 @@
           <span class="video-tag">Long Demo</span>
           <h3>Long Demo: Full CLONE Review and Validation Walkthrough</h3>
           <p>A 7–10 minute walkthrough covering clone detection, occurrence inspection, diff review, trust evidence, the Apply/Edit/Cancel/Help controls, build and test verification, and developer control.</p>
-          <!-- EDIT THIS: replace with the real long demo file once recorded -->
-          <video class="video-frame" controls src="videos/long-demo.mp4">
+          <video class="video-frame" controls preload="metadata" src="videos/long-demo.mp4">
             Your browser does not support embedded video.
           </video>
           <span class="video-fallback"><a href="videos/long-demo.mp4">Open long-demo.mp4</a></span>
@@ -982,9 +982,6 @@
 
     <!-- ============================================================
          UI GALLERY / SCREEN CAPTURES
-         EDIT: replace each gallery-placeholder with an <img> once
-         screenshots exist, e.g.
-         <img src="images/full-clone-panel.png" alt="Full CLONE panel" />
     ============================================================ -->
     <div id="gallery">
       <div class="section-header">
@@ -996,43 +993,43 @@
 
       <div class="gallery-grid">
         <button class="gallery-card" type="button" data-image="images/full-clone-panel.png" data-title="Full CLONE Panel" data-description="Full IntelliJ panel showing explanation, diff, validation, and actions together.">
-          <div class="gallery-image-wrap">
-            <img src="images/full-clone-panel.png" alt="Full CLONE panel in IntelliJ" />
-          </div>
-          <div class="gallery-caption">
-            <h3>Full CLONE Panel</h3>
-            <p>Full IntelliJ panel showing explanation, diff, validation, and actions together.</p>
-          </div>
+          <span class="gallery-image-wrap">
+            <img src="images/full-clone-panel.png" alt="Full CLONE panel in IntelliJ">
+          </span>
+          <span class="gallery-caption">
+            <span class="gallery-title">Full CLONE Panel</span>
+            <span class="gallery-description">Full IntelliJ panel showing explanation, diff, validation, and actions together.</span>
+          </span>
         </button>
 
         <button class="gallery-card" type="button" data-image="images/clone-occurrence-dialog.png" data-title="Clone Occurrence Dialog" data-description="Occurrence selection view where developers can include, exclude, or inspect detected clones.">
-          <div class="gallery-image-wrap">
-            <img src="images/clone-occurrence-dialog.png" alt="Clone occurrence selection dialog" />
-          </div>
-          <div class="gallery-caption">
-            <h3>Clone Occurrence Dialog</h3>
-            <p>Occurrence selection view where developers can include, exclude, or inspect detected clones.</p>
-          </div>
+          <span class="gallery-image-wrap">
+            <img src="images/clone-occurrence-dialog.png" alt="Clone occurrence selection dialog">
+          </span>
+          <span class="gallery-caption">
+            <span class="gallery-title">Clone Occurrence Dialog</span>
+            <span class="gallery-description">Occurrence selection view where developers can include, exclude, or inspect detected clones.</span>
+          </span>
         </button>
 
         <button class="gallery-card" type="button" data-image="images/diff-preview.png" data-title="Diff Preview" data-description="Before-and-after code comparison showing the proposed Extract Method refactoring.">
-          <div class="gallery-image-wrap">
-            <img src="images/diff-preview.png" alt="Diff preview for the proposed refactoring" />
-          </div>
-          <div class="gallery-caption">
-            <h3>Diff Preview</h3>
-            <p>Before-and-after code comparison showing the proposed Extract Method refactoring.</p>
-          </div>
+          <span class="gallery-image-wrap">
+            <img src="images/diff-preview.png" alt="Diff preview for the proposed refactoring">
+          </span>
+          <span class="gallery-caption">
+            <span class="gallery-title">Diff Preview</span>
+            <span class="gallery-description">Before-and-after code comparison showing the proposed Extract Method refactoring.</span>
+          </span>
         </button>
 
         <button class="gallery-card" type="button" data-image="images/ai-trust-validation.png" data-title="AI Trust Validation" data-description="Validation evidence from clone detection, refactoring, usefulness, compilation, and tests.">
-          <div class="gallery-image-wrap">
-            <img src="images/ai-trust-validation.png" alt="AI trust and validation evidence panel" />
-          </div>
-          <div class="gallery-caption">
-            <h3>AI Trust Validation</h3>
-            <p>Validation evidence from clone detection, refactoring, usefulness, compilation, and tests.</p>
-          </div>
+          <span class="gallery-image-wrap">
+            <img src="images/ai-trust-validation.png" alt="AI trust and validation evidence panel">
+          </span>
+          <span class="gallery-caption">
+            <span class="gallery-title">AI Trust Validation</span>
+            <span class="gallery-description">Validation evidence from clone detection, refactoring, usefulness, compilation, and tests.</span>
+          </span>
         </button>
 
       </div>
@@ -1042,10 +1039,10 @@
       <div class="image-modal-dialog">
         <button class="image-modal-close" type="button" aria-label="Close preview">×</button>
         <div class="image-modal-frame">
-          <img id="modalImage" src="" alt="Expanded screenshot preview" />
+          <img id="modalImage" src="images/full-clone-panel.png" alt="Expanded screenshot preview">
         </div>
         <div class="image-modal-caption">
-          <h3 id="modalTitle"></h3>
+          <h3 id="modalTitle">Screenshot preview</h3>
           <p id="modalDescription"></p>
         </div>
       </div>
@@ -1054,7 +1051,6 @@
 
     <!-- ============================================================
          USER TESTING / FEEDBACK
-         EDIT: replace the Google Form placeholder link once created.
     ============================================================ -->
     <div id="testing">
       <div class="section-header">
@@ -1063,16 +1059,16 @@
 
       <div class="testing-panel">
         <p>
-          The team prepared a standardized instruction sheet and a Google Form for people
-          testing the CLONE plugin. Testers use a small duplicated Java code example, since
-          the plugin relies on API tokens during detection, refactoring, validation, and
-          testing. Each team member is finding two to three users to test the plugin and
-          submit feedback, which will be summarized into graphs for the final report.
+          The team prepared a standardized instruction sheet and Microsoft Form for people
+          testing the CLONE plugin. Eight participants used a small duplicated Java code
+          example and submitted feedback about the redesigned interface. Five rated the
+          overall experience as good and three rated it as neutral, with no negative ratings.
+          The Diff Preview was selected most often as the interface's most useful feature.
         </p>
         <div class="testing-links">
           <a class="resource-item" href="resources/user-testing-instructions.pdf"><span class="r-text">Testing Instructions<small>PDF</small></span></a>
-          <a class="resource-item" href="https://forms.cloud.microsoft/r/BL5ptNQEjb?origin=lprLink "><span class="r-text">Feedback Form<small>Google Form</small></span></a>
-          <a class="resource-item" href="resources/user-feedback-results.pdf"><span class="r-text">Feedback Results<small>PDF, coming soon</small></span></a>
+          <a class="resource-item" href="https://forms.cloud.microsoft/r/BL5ptNQEjb?origin=lprLink"><span class="r-text">Feedback Form<small>Microsoft Form</small></span></a>
+          <a class="resource-item" href="resources/user-feedback-results.pdf"><span class="r-text">Feedback Results<small>PDF</small></span></a>
         </div>
       </div>
     </div>
@@ -1087,16 +1083,13 @@
       </div>
 
       <div class="resource-grid">
-        <a class="resource-item" href="final/final-report.pdf"><span class="r-text">Final Report</span></a>
-        <a class="resource-item" href="final/final-slides.pdf"><span class="r-text">Final Slides</span></a>
+        <a class="resource-item" href="final/final-report.pdf"><span class="r-text">Research Paper</span></a>
         <a class="resource-item" href="videos/long-demo.mp4"><span class="r-text">Long Demo Video</span></a>
         <a class="resource-item" href="videos/short-demo.mp4"><span class="r-text">Short Demo Video</span></a>
         <a class="resource-item" href="https://github.com/refactorings/anti-copy-paster"><span class="r-text">GitHub Repository</span></a>
-        <!-- EDIT THIS: replace # with the real Overleaf link once ready -->
-        <a class="resource-item" href="#"><span class="r-text">Overleaf Draft</span></a>
-        <a class="resource-item" href="https://forms.cloud.microsoft/r/BL5ptNQEjb?origin=lprLink "><span class="r-text">User Testing Form</span></a>
+        <a class="resource-item" href="https://forms.cloud.microsoft/r/BL5ptNQEjb?origin=lprLink"><span class="r-text">User Testing Form</span></a>
         <a class="resource-item" href="resources/user-testing-instructions.pdf"><span class="r-text">User Testing Instructions</span></a>
-        <a class="resource-item" href="resources/README_with_clone_ui_section.md"><span class="r-text">README / Documentation</span></a>
+        <a class="resource-item" href="resources/user-feedback-results.pdf"><span class="r-text">User Testing Results</span></a>
       </div>
     </div>
 
@@ -1134,8 +1127,7 @@
 
       <div class="overview-field full-width">
         <span class="label">Current Status</span>
-        <!-- EDIT THIS: Update this badge text as the program progresses -->
-        <span class="status-badge">Final documentation, demo recording, and user testing in progress</span>
+        <span class="status-badge">10-week research project completed</span>
       </div>
     </div>
 
@@ -1159,8 +1151,8 @@
         <div class="t-seg" data-status="completed"    title="Week 6"></div>
         <div class="t-seg" data-status="completed"    title="Week 7"></div>
         <div class="t-seg" data-status="completed"    title="Week 8"></div>
-        <div class="t-seg" data-status="in-progress"  title="Week 9"></div>
-        <div class="t-seg" data-status="not-started"  title="Week 10"></div>
+        <div class="t-seg" data-status="completed"    title="Week 9"></div>
+        <div class="t-seg" data-status="completed"    title="Week 10"></div>
       </div>
       <div class="timeline-weeks">
         <span>Wk 1</span><span>2</span><span>3</span><span>4</span><span>5</span>
@@ -1210,7 +1202,7 @@
               <span class="label">Challenges &amp; Blockers</span>
               <p>The team didn't encounter any major challenges this week.</p>
             </div>
-            <div class="report-field full-width" style="grid-column: 1 / -1;">
+            <div class="report-field full-width">
               <span class="label">Next Steps</span>
               <p>- Continue getting familiarized with the code and other tools. </p>
               <p>- Polish and start implementing the chosen design direction. </p>
@@ -1247,7 +1239,7 @@
             <div class="report-field"><span class="label">Summary of Progress</span><p>The team presented its understanding of each agent's functionality, reviewed Dhir's prototype, and presented Amaro's Summer Research Website. The team also moved communication from the personal group to the SPARK channel and created a private voice channel for research work.</p></div>
             <div class="report-field"><span class="label">Key Accomplishments</span><p>- Uploaded the agent functionality presentation to the team's OneDrive slides folder.</p><p>- Presented Dhir's prototype and Amaro's Summer Research Website.</p><p>- Switched team communication to the SPARK channel and created a private voice channel.</p><p>- Identified follow-up work for confidence scoring, tool testing, documentation, Gemini API setup, and IntelliJ-style UI design.</p></div>
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>The confidence score calculation still needed to be defined, including how to factor in usefulness, compilation, testing agents, and refactoring count. The team also needed more hands-on testing with the AntiCopyPaster tool and more exploration of IntelliJ's UI patterns.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Brainstorm confidence score logic, run and test the AntiCopyPaster tool, add team member work and resources to the website and OneDrive, review the Gemini API setup and tool demo videos, and refine the UI prototype to better match IntelliJ design conventions.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Brainstorm confidence score logic, run and test the AntiCopyPaster tool, add team member work and resources to the website and OneDrive, review the Gemini API setup and tool demo videos, and refine the UI prototype to better match IntelliJ design conventions.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
@@ -1269,18 +1261,18 @@
         <div class="week-header">
           <div class="week-meta">
             <div class="week-num">Week 3</div>
-            <div class="week-focus-preview">UI panel work, log review, and confidence score updates</div>
+            <div class="week-focus-preview">Tool testing, log review, IntelliJ-style redesign, and AI Trust updates</div>
           </div>
           <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Organize weekly progress updates, review Dr. AlOmar's sample log file, begin improving the GitHub UI panel, and refine confidence/trust score behavior based on advisor feedback.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>The team moved from planning into implementation work. Members prepared summarized weekly progress for Amaro, reviewed the sample log file shared on Discord, began dividing UI panel implementation tasks, and identified testing issues around duplicated methods and API key validation.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Started work on improving the UI panel on GitHub and dividing implementation tasks.</p><p>- Reviewed the sample log file provided by Dr. AlOmar.</p><p>- Planned updates to the confidence and trust score based on Dr. AlOmar's suggestions.</p><p>- Identified the API key validation issue with the AQ. prefix.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Testing revealed errors and warnings when duplicating a method in the tool. The API key validation also needed to be adjusted so it accepts the AQ. prefix or removes validation entirely.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Continue implementing UI panel improvements, document duplication-related errors with a screen recording, update the confidence/trust score, fix API key validation, and keep weekly progress summaries organized for the website.</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Complete tool testing, review the generated logs, redesign the interface in Figma using IntelliJ patterns, and turn the confidence concept into an evidence-based AI Trust Score.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>The team completed tool testing and used log evidence to guide the interface design. The UI was redesigned in Figma, the AI Trust Score was defined around five workflow stages, and issues involving API quotas, key validation, fallback detection, incomplete refactorings, compilation, and testing environments were documented.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Completed tool testing and reviewed the sample and team log files.</p><p>- Redesigned the UI in Figma using IntelliJ design patterns.</p><p>- Defined the AI Trust Score as five equally weighted stages: detection, refactoring, usefulness, compilation, and testing.</p><p>- Identified the API key validation issue involving newer key formats.</p><p>- Distinguished provider, fallback, compilation, and testing failures that need separate UI states.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Testing exposed API quota failures, strict API key validation, incomplete refactorings, and test-environment failures. The interface needed to distinguish those cases clearly instead of presenting them as one generic error.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Begin implementing the redesigned UI on the ui_panel branch, divide ownership by interface section, update API key validation, continue testing the full workflow, and keep the website evidence organized.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
@@ -1313,7 +1305,7 @@
             <div class="report-field"><span class="label">Summary of Progress</span><p>The team presented the Week 3 progress slides, confirmed that all members could run AntiCopyPaster, and identified API token/provider limits as the main remaining tool-running issue. The UI design was finalized using the IntelliJ Figma Kit, the AI Trust Score direction was reviewed, and the team planned how to compare the existing UI Panel with the finished design before larger implementation changes.</p></div>
             <div class="report-field"><span class="label">Key Accomplishments</span><p>- Finished the IntelliJ-style UI design in Figma.</p><p>- Decided that multiple detected clones should appear as separate cards so each suggestion can be reviewed individually.</p><p>- Divided UI implementation sections across the team: multiple-clone cards, explanation content, diff preview, AI Trust/validation, and action buttons.</p><p>- Agreed to use separate branches and pull requests into the ui_panel branch for review and merging.</p></div>
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>The team still needs to compare the current UI Panel against the Figma design using runIDE and Dr. AlOmar's demo video. API token and provider limits remain the main tool-running constraint, and UI work needs careful coordination so parallel branches can merge cleanly.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Begin implementing each assigned UI section on separate branches, capture screenshots or recordings of the current UI Panel when possible, open pull requests into ui_panel, review and resolve conflicts as a team, and continue updating the website with weekly files and implementation evidence.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Begin implementing each assigned UI section on separate branches, capture screenshots or recordings of the current UI Panel when possible, open pull requests into ui_panel, review and resolve conflicts as a team, and continue updating the website with weekly files and implementation evidence.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
@@ -1346,7 +1338,7 @@
             <div class="report-field"><span class="label">Summary of Progress</span><p>All team members continued implementing their assigned portions of the UI panel. The team refined the multiple-clone experience so each clone appears in its own card, added clone-level decisions, and clarified how users can edit suggested code and respond when validation fails.</p></div>
             <div class="report-field"><span class="label">Key Accomplishments</span><p>- Designed separate cards for each detected clone.</p><p>- Added Include and Exclude actions so users can decide whether each clone should be refactored.</p><p>- Added direct editing so users can revise code before applying AI-suggested changes.</p><p>- Defined that the Apply action is disabled when validation fails.</p><p>- Confirmed the workflow for opening pull requests into the ui_panel branch, assigning reviewers, and merging approved changes.</p></div>
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Parallel UI changes still require careful review and conflict resolution before they can be merged into the ui_panel branch. Validation failures must also be communicated clearly because they leave no valid change for the user to apply.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Finish each assigned implementation, push the individual branches, open pull requests into ui_panel, assign reviewers, resolve merge conflicts, and merge approved work. Continue sharing screenshots of implementation progress and updating the research website.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Finish each assigned implementation, push the individual branches, open pull requests into ui_panel, assign reviewers, resolve merge conflicts, and merge approved work. Continue sharing screenshots of implementation progress and updating the research website.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
@@ -1367,18 +1359,18 @@
         <div class="week-header">
           <div class="week-meta">
             <div class="week-num">Week 6</div>
-            <div class="week-focus-preview">Pull request reviews, UI integration, and initial testing</div>
+            <div class="week-focus-preview">Pull request reviews, cross-testing, and integration preparation</div>
           </div>
           <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Complete the team's assigned UI sections, review and test each pull request, merge the approved work into the ui_panel branch, and run an initial test of the integrated interface.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>Every team member pushed their implementation to an individual branch and opened a pull request. Team members then cross-tested one another's changes, verified the integrated behavior, and merged the reviewed work into the ui_panel branch. The project website and supporting files were also brought up to date.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Completed the assigned UI sections: multiple-clone UI, explanations, diff preview, AI Trust validation, and buttons/actions.</p><p>- Opened pull requests for each team member's branch.</p><p>- Cross-tested teammates' code before approval.</p><p>- Merged the reviewed implementations into the ui_panel branch.</p><p>- Performed an initial test run of the integrated UI panel.</p><p>- Updated the website and weekly project files.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>The separate UI contributions had to be reviewed and tested together to catch integration problems before merging. The final merge from ui_panel into the main branch remains dependent on Professor AlOmar's review.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Begin working in Overleaf, keep sharing screenshots and progress updates with the team, maintain the research website, and prepare the reviewed ui_panel work for Professor AlOmar to merge into the main branch.</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Move the individual UI implementations into formal pull-request review, cross-test teammates' work, begin merging approved changes, and prepare the combined panel for a full runIDE test.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>All team members pushed feature branches and opened pull requests. Reviewers cross-tested the changes, the team began integrating approved work into ui_panel, and the website files were updated. The explanation and action-button sections were verified, while other sections still needed review or combined-panel testing.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Created pull requests for the individual feature branches.</p><p>- Assigned reviewers and cross-tested teammates' changes.</p><p>- Verified the explanation section and buttons/actions work.</p><p>- Began merging approved changes into the shared ui_panel branch.</p><p>- Updated the website and weekly project files.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>The multiple-clone and diff-preview work still needed to be pushed and reviewed, AI Trust needed integrated-panel verification, and the complete panel still required a runIDE test before final integration.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Finish the remaining pull requests and reviews, merge accepted changes into ui_panel, run the complete panel in the IntelliJ sandbox, keep the website current, and begin Overleaf work the following week.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
@@ -1410,14 +1402,14 @@
             <div class="report-field"><span class="label">Summary of Progress</span><p>The team moved from branch integration into final UI cleanup and documentation. The complete IntelliJ tool window was reviewed as one interface, eight of eleven identified UI issues were fixed, and the website and shared Week 7 files were kept organized. The team also began writing the final paper sections in Overleaf and discussed how user feedback will be collected.</p></div>
             <div class="report-field"><span class="label">Key Accomplishments</span><p>- Fixed eight UI issues involving branding, help-button cleanup, dialog alignment, confidence-label cleanup, scrolling, button placement, IntelliJ-style dropdown icons, and description spacing.</p><p>- Added scrollbars so users can reach explanations, diff previews, trust details, status messages, and action buttons inside narrow IntelliJ tool windows.</p><p>- Updated remaining AntiCopyPaster wording to CLONE for more consistent project branding.</p><p>- Started Overleaf sections for the abstract, introduction, problem statement, new features, workflow, and feature documentation.</p><p>- Planned user testing and feedback collection for the redesigned CLONE panel.</p></div>
             <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Three final UI issues still need to be completed and verified inside the full panel. The paper sections also need more depth, feature screenshots, workflow documentation, installation and usage instructions, and user feedback that can be summarized in the final report.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Complete and test the final three UI fixes, run the updated panel in IntelliJ, capture light-mode images of each feature and the full interface, expand the Overleaf paper, revise the feedback form, recruit two to three users per team member, and organize responses into graphs for the final report.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Complete and test the final three UI fixes, run the updated panel in IntelliJ, capture light-mode images of each feature and the full interface, expand the Overleaf paper, revise the feedback form, recruit two to three users per team member, and organize responses into graphs for the final report.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
                 <a class="file-link" href="week7/report.pdf"     target="_blank">Weekly Report</a>
                 <a class="file-link" href="week7/slides.pdf"     target="_blank">Slides</a>
                 <a class="file-link" href="week7/notes.pdf"      target="_blank">Notes</a>
-                <a class="file-link" href="week7/Updated_UI-Panel_Preview.mp4.url" target="_blank">Updated UI Panel</a>
+                <a class="file-link" href="https://stevens0-my.sharepoint.com/personal/ealomar_stevens_edu/Documents/CLONE%20-%20Summer%202026/Week%207%20Files/Updated_UI-Panel_Preview.mp4?ocid=kog_i9elgli8&amp;web=1" target="_blank">Updated UI Panel</a>
                 <a class="file-link" href="week7/Working_Edit_Code_Button.mp4" target="_blank">Working Edit Button</a>
                 <a class="file-link" href="week7/collaborators.pdf" target="_blank">Collaborators</a>
               </div>
@@ -1432,29 +1424,29 @@
         <div class="week-header">
           <div class="week-meta">
             <div class="week-num">Week 8</div>
-            <div class="week-focus-preview">Final UI fixes, Overleaf paper expansion, demo recording, and user testing prep</div>
+            <div class="week-focus-preview">Overleaf expansion, workflow documentation, UI figures, and testing plan</div>
           </div>
           <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Final UI fixes, Overleaf paper expansion, demo recording, user testing preparation, and final documentation.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>The team showed the completed UI fixes, reviewed progress on the Overleaf paper, and received additional direction from Dr. AlOmar. Dr. AlOmar shared a reference paper that could help guide the final paper. The team also discussed finding users to test the CLONE plugin with the new panel and using a Google Form to collect feedback from testers.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Showed recent UI fixes and confirmed progress toward the final panel.</p><p>- Reviewed Overleaf progress including abstract, introduction, problem statement, and new feature sections.</p><p>- Received a reference paper from Dr. AlOmar to support final report writing.</p><p>- Planned user testing for the CLONE plugin.</p><p>- Created or planned a Google Form for user feedback.</p><p>- Planned screenshots and figures of each new feature in IntelliJ light mode.</p><p>- Planned short and long professional demo videos.</p><p>- Added README documentation describing the CLONE UI improvements.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>- Final three UI issues still needed to be fixed and verified.</p><p>- New Features subsections in Overleaf needed more content.</p><p>- The team needed to run the plugin fully using available API tokens.</p><p>- UI screenshots needed to be captured in IntelliJ light mode.</p><p>- User feedback needed to be collected and converted into graphs for the final report.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>- Fix the final three UI issues.</p><p>- Add more content to each Overleaf subsection.</p><p>- Add a workflow section explaining how CLONE works.</p><p>- Add a how-to-use section explaining installation and usage.</p><p>- Add feature screenshots/figures in each corresponding subsection.</p><p>- Each team member should find 2–3 users to test the plugin.</p><p>- Update the Google Form with questions that generate useful feedback graphs.</p><p>- Record the long demo and short demo.</p><p>- Add final report, demo videos, UI screen capture, and resources to the website.</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Expand the Overleaf paper, document the complete CLONE workflow and usage process, add light-mode UI figures, and prepare the participant plan for user testing.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>The team concentrated on the research paper and supporting documentation. Two major sections—Workflow and How to Use—were added to Overleaf, existing sections were expanded with more detail, and light-mode images of the redesigned UI panel were added as figures. The team also agreed that every member would recruit two people to test the code during the following week.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Added two major Overleaf sections: Workflow and How to Use.</p><p>- Expanded the paper with more detail throughout its existing sections.</p><p>- Added light-mode images of the CLONE UI panel and its features.</p><p>- Documented the end-to-end workflow and installation/usage process.</p><p>- Agreed that each team member would recruit two people to test the code.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>The paper still needed final polishing, and the team needed to turn its testing plan into clear participant instructions before testing could begin. Demo recording and user testing were scheduled for Week 9.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Create the user-testing instructions, have each team member guide two participants through the plugin, collect and summarize feedback, record the short and long demonstrations, and use the results to finish the report.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
                 <a class="file-link" href="week8/report.pdf"     target="_blank">Weekly Report</a>
                 <a class="file-link" href="week8/slides.pdf"     target="_blank">Slides</a>
                 <a class="file-link" href="week8/notes.pdf"      target="_blank">Notes</a>
-                <a class="file-link" href="week8/results.pdf"    target="_blank">Data / Results</a>
                 <a class="file-link" href="week8/collaborators.pdf" target="_blank">Collaborators</a>
-                <a class="file-link" href="week8/user-testing-instructions.pdf" target="_blank">User Testing Instructions</a>
-                <!-- EDIT THIS: replace with the real Google Form link -->
-                <a class="file-link" href="https://forms.gle/REPLACE_WITH_FORM_LINK" target="_blank">Google Form</a>
+                <a class="file-link" href="images/full-clone-panel.png" target="_blank">View Full UI Panel</a>
+                <a class="file-link" href="week8/other-docs.pdf" target="_blank">UI Issues</a>
+
+                <!-- ADD WEEK 8 FILES HERE: copy a file into week8/ and duplicate a link above -->
               </div>
             </div>
           </div>
@@ -1469,25 +1461,28 @@
             <div class="week-num">Week 9</div>
             <div class="week-focus-preview">User testing, demo recording, and final report drafting</div>
           </div>
-          <span class="week-status-badge in-progress">In Progress</span>
+          <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Update with Week 9 focus.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 9 summary.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 9 accomplishments.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 9 challenges.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>Update with Week 9 next steps.</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Create user instructions, test the CLONE plugin with participants, record demonstrations, and incorporate the evidence into the final report.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>The team created step-by-step user-testing instructions, guided participants through the updated CLONE workflow, collected feedback, and recorded the project demonstrations. This completed the testing and demo work that had been planned during Week 8.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Created clear instructions for user testing.</p><p>- Had team members recruit and guide participants through testing the code.</p><p>- Tested the redesigned UI panel and complete CLONE workflow.</p><p>- Collected feedback for the final report and supporting results.</p><p>- Recorded the short and long project demonstrations.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Testing required coordinating participant availability and ensuring everyone could follow the same setup and workflow. The team also needed to consolidate the feedback and recordings into final presentation-ready materials.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Finish the report and presentation, add the final testing results and demo materials to the website, and prepare for the Week 10 project wrap-up.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
                 <a class="file-link" href="week9/report.pdf"     target="_blank">Weekly Report</a>
                 <a class="file-link" href="week9/slides.pdf"     target="_blank">Slides</a>
                 <a class="file-link" href="week9/notes.pdf"      target="_blank">Notes</a>
-                <a class="file-link" href="week9/results.pdf"    target="_blank">Data / Results</a>
-                <a class="file-link" href="week9/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="https://docs.google.com/spreadsheets/d/1NEtv84R4wqRG90UAYFJUmRGF33uFwgzrqkyTfV8MS_M/edit?usp=sharing"    target="_blank">Test Data</a>
                 <a class="file-link" href="week9/collaborators.pdf" target="_blank">Collaborators</a>
+                <a class="file-link" href="week9/user-testing-instructions.pdf" target="_blank">User Testing Instructions</a>
+                <a class="file-link" href="videos/short-demo.mp4" target="_blank">Short Demo</a>
+                <a class="file-link" href="videos/long-demo.mp4" target="_blank">Long Demo</a>
+                <!-- ADD WEEK 9 FILES HERE: copy a file into week9/ and duplicate a link above -->
               </div>
             </div>
           </div>
@@ -1496,31 +1491,31 @@
 
 
       <!-- ===== WEEK 10 ===== -->
-      <div class="week-item" data-week="10">
+      <div class="week-item openable" data-week="10">
         <div class="week-header">
           <div class="week-meta">
             <div class="week-num">Week 10</div>
             <div class="week-focus-preview">Final presentations and wrap-up</div>
           </div>
-          <span class="week-status-badge not-started">Not Started</span>
+          <span class="week-status-badge completed">Completed</span>
           <span class="week-chevron">▾</span>
         </div>
         <div class="week-body">
           <div class="week-body-inner">
-            <div class="report-field"><span class="label">Week Focus</span><p>Final presentations, wrap-up, and next steps for the research.</p></div>
-            <div class="report-field"><span class="label">Summary of Progress</span><p>Update with Week 10 summary.</p></div>
-            <div class="report-field"><span class="label">Key Accomplishments</span><p>Update with Week 10 accomplishments.</p></div>
-            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>Update with Week 10 challenges.</p></div>
-            <div class="report-field" style="grid-column: 1 / -1;"><span class="label">Next Steps</span><p>What comes after the 10-week program? Future directions?</p></div>
+            <div class="report-field"><span class="label">Week Focus</span><p>Complete the final report and presentation, publish the testing results and demonstrations, and close out the 10-week research project.</p></div>
+            <div class="report-field"><span class="label">Summary of Progress</span><p>The team finalized the research deliverables, organized the user-testing results, completed the project presentation materials, and prepared the website as a complete archive of the 10-week project.</p></div>
+            <div class="report-field"><span class="label">Key Accomplishments</span><p>- Completed the final report and presentation materials.</p><p>- Summarized user feedback and added results visuals.</p><p>- Organized the final demonstrations, UI images, and weekly documentation.</p><p>- Completed the 10-week progress archive and project website.</p></div>
+            <div class="report-field"><span class="label">Challenges &amp; Blockers</span><p>No remaining project blockers. Final materials were checked and organized for the concluding presentation and handoff.</p></div>
+            <div class="report-field full-width"><span class="label">Next Steps</span><p>Present the completed work, hand off the final research materials, and use the findings and participant feedback to guide future CLONE improvements.</p></div>
             <div class="files-section">
               <span class="label">Files &amp; Documents</span>
               <div class="files-grid">
-                <a class="file-link" href="week10/report.pdf"     target="_blank">Final Report</a>
-                <a class="file-link" href="week10/slides.pdf"     target="_blank">Final Slides</a>
-                <a class="file-link" href="week10/notes.pdf"      target="_blank">Notes</a>
-                <a class="file-link" href="week10/results.pdf"    target="_blank">Data / Results</a>
-                <a class="file-link" href="week10/other-docs.pdf" target="_blank">Other Documents</a>
+                <a class="file-link" href="week10/report.pdf"     target="_blank">Report</a>
+                <a class="file-link" href="week10/slides.pdf"     target="_blank">Slides</a>
+                <a class="file-link" href="week10/results.pdf"    target="_blank">Test Results</a>
+                <a class="file-link" href="week10/other-docs.pdf" target="_blank">Research Paper</a>
                 <a class="file-link" href="week10/collaborators.pdf" target="_blank">Collaborators</a>
+                <!-- ADD WEEK 10 FILES HERE: copy a file into week10/ and duplicate a link above -->
               </div>
             </div>
           </div>
@@ -1553,18 +1548,36 @@
 
       const header = item.querySelector('.week-header');
       const body   = item.querySelector('.week-body');
+      const week   = item.getAttribute('data-week');
 
-      header.addEventListener('click', function() {
+      body.id = 'week-body-' + week;
+      header.setAttribute('role', 'button');
+      header.setAttribute('tabindex', '0');
+      header.setAttribute('aria-controls', body.id);
+      header.setAttribute('aria-expanded', 'false');
+
+      const toggleWeek = function() {
         const isOpen = item.classList.contains('open');
 
         weekItems.forEach(function(otherItem) {
           otherItem.classList.remove('open');
           otherItem.querySelector('.week-body').style.maxHeight = '0px';
+          const otherHeader = otherItem.querySelector('.week-header');
+          if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
         });
 
         if (!isOpen) {
           item.classList.add('open');
           body.style.maxHeight = body.scrollHeight + 'px';
+          header.setAttribute('aria-expanded', 'true');
+        }
+      };
+
+      header.addEventListener('click', toggleWeek);
+      header.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleWeek();
         }
       });
     });
@@ -1574,21 +1587,25 @@
     const modalTitle = document.getElementById('modalTitle');
     const modalDescription = document.getElementById('modalDescription');
     const closeButton = document.querySelector('.image-modal-close');
+    let modalTrigger = null;
 
     document.querySelectorAll('.gallery-card').forEach(card => {
       card.addEventListener('click', () => {
+        modalTrigger = card;
         modalImage.src = card.getAttribute('data-image');
         modalImage.alt = card.querySelector('img').alt;
         modalTitle.textContent = card.getAttribute('data-title');
         modalDescription.textContent = card.getAttribute('data-description');
         modal.classList.add('is-open');
         document.body.classList.add('modal-open');
+        closeButton.focus();
       });
     });
 
     const closeModal = () => {
       modal.classList.remove('is-open');
       document.body.classList.remove('modal-open');
+      if (modalTrigger) modalTrigger.focus();
     };
 
     closeButton.addEventListener('click', closeModal);
