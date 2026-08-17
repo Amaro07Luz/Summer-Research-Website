@@ -304,6 +304,30 @@
     }
 
     /* ============================================================
+       RESEARCH CONTRIBUTION STRIP
+    ============================================================ */
+    .contribution-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .contribution-card .c-number {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(91, 140, 255, 0.12);
+      border: 1px solid var(--border-hover);
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.92rem;
+      color: var(--accent-blue);
+    }
+    .contribution-card h3 { font-size: 0.95rem; color: var(--text-primary); margin-bottom: 6px; font-weight: 400; }
+    .contribution-card p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+    /* ============================================================
        TEAM SECTION
     ============================================================ */
     .team-grid {
@@ -321,6 +345,8 @@
       padding: 22px;
       text-align: left;
       transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
     }
     .team-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
 
@@ -349,7 +375,46 @@
       display: block;
     }
     .team-card.advisor .team-role { color: var(--accent-amber); }
-    .team-card p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.65; }
+    .team-card p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1 1 auto;      /* absorbs the extra height so every button lands at the card bottom */
+      margin-bottom: 18px;
+    }
+    .linkedin-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: auto;    /* pinned to the bottom edge of every card */
+      padding: 10px 14px;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-radius: 10px;
+      background: rgba(59, 130, 246, 0.08);
+      color: var(--accent-blue);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    .linkedin-link:hover,
+    .linkedin-link:focus-visible {
+      background: #0a66c2;
+      border-color: #0a66c2;
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(10, 102, 194, 0.28);
+    }
+    .linkedin-link:active { transform: translateY(0); box-shadow: none; }
+    .linkedin-link svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
 
     /* ============================================================
        VIDEO CARDS
@@ -858,12 +923,13 @@
     ============================================================ -->
     <header class="hero" id="home">
       <h1>CLONE</h1>
-      <p class="hero-subtitle">AI-Assisted IntelliJ Plugin for Clone Refactoring</p>
+      <p class="hero-subtitle">Human-centred review for AI-assisted clone refactoring</p>
 
       <p class="hero-desc">
         CLONE helps Java developers detect duplicated code introduced through copy-and-paste,
-        review an Extract Method refactoring, check the validation evidence behind it, and
-        apply the change only when they are confident it is correct.
+        choose the relevant occurrences, inspect an Extract Method proposal and its validation
+        evidence, then apply, edit, regenerate, or cancel the change &mdash; with the final decision
+        remaining in the developer's hands.
       </p>
 
       <div class="hero-actions">
@@ -888,6 +954,30 @@
 <p class="section-lede">
   The goal of CLONE is to make duplicate-code refactoring more understandable, transparent, and developer-controlled. The interface supports multiple clone occurrences, allowing users to include, exclude, or inspect individual duplicates before continuing. It also provides validation evidence such as clone detection, refactoring generation, usefulness checking, compilation results, and test or behavior-preservation checks. These signals do not guarantee correctness, but they help developers assess whether a suggestion is ready to apply while still keeping the final decision in their hands.
 </p>
+
+      <div class="card-grid cols-3">
+        <div class="info-card contribution-card">
+          <span class="c-number">01</span>
+          <div>
+            <h3>Scope before automation</h3>
+            <p>Developers include, exclude, or inspect clone occurrences before a proposal proceeds.</p>
+          </div>
+        </div>
+        <div class="info-card contribution-card">
+          <span class="c-number">02</span>
+          <div>
+            <h3>Evidence, not blind trust</h3>
+            <p>A side-by-side diff, provenance, and validation signals make a recommendation inspectable.</p>
+          </div>
+        </div>
+        <div class="info-card contribution-card">
+          <span class="c-number">03</span>
+          <div>
+            <h3>Developer agency after generation</h3>
+            <p>Developers can edit, regenerate, apply, or cancel; validation gates prevent a stale proposal from being applied.</p>
+          </div>
+        </div>
+      </div>
 </div>
 
 
@@ -909,36 +999,42 @@
           <h3>Amaro Da Luz</h3>
           <span class="team-role">Website &amp; Documentation</span>
           <p>Website organization, documentation, the explanation section, problem statement, header and abstract writing, project files, testing support, and final website updates.</p>
+          <a class="linkedin-link" href="https://www.linkedin.com/in/amarodaluz/" target="_blank" rel="noopener noreferrer" aria-label="View Amaro Da Luz on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29zM5.32 7.41a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.04H3.54V8.98H7.1v11.47z"/></svg>LinkedIn</a>
         </div>
         <div class="team-card">
           <div class="team-avatar">DR</div>
           <h3>Dhir Rana</h3>
           <span class="team-role">AI Trust &amp; Validation</span>
           <p>AI Trust and validation feature, trust evidence design, the New Features writing, and validation-related documentation.</p>
+          <a class="linkedin-link" href="https://www.linkedin.com/in/dhirrana/" target="_blank" rel="noopener noreferrer" aria-label="View Dhir Rana on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29zM5.32 7.41a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.04H3.54V8.98H7.1v11.47z"/></svg>LinkedIn</a>
         </div>
         <div class="team-card">
           <div class="team-avatar">FN</div>
           <h3>Fintan Naughton</h3>
           <span class="team-role">Developer Controls</span>
           <p>Action buttons, the apply/edit/cancel workflow, developer control behavior, and button issue fixes, with Juliana's help.</p>
+          <a class="linkedin-link" href="https://www.linkedin.com/in/fin-naughton-7385b1300/" target="_blank" rel="noopener noreferrer" aria-label="View Fintan Naughton on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29zM5.32 7.41a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.04H3.54V8.98H7.1v11.47z"/></svg>LinkedIn</a>
         </div>
         <div class="team-card">
           <div class="team-avatar">JS</div>
           <h3>Jake Stinton</h3>
           <span class="team-role">Clone Occurrences</span>
           <p>Introduction writing, multiple clone occurrences and cards, include/exclude/inspect behavior, and clone-scope review.</p>
+          <a class="linkedin-link" href="https://www.linkedin.com/in/jake-stinton-624993290/" target="_blank" rel="noopener noreferrer" aria-label="View Jake Stinton on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29zM5.32 7.41a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.04H3.54V8.98H7.1v11.47z"/></svg>LinkedIn</a>
         </div>
         <div class="team-card">
           <div class="team-avatar">JP</div>
           <h3>Juliana Pimentel</h3>
           <span class="team-role">Diff Preview &amp; Testing</span>
           <p>Diff preview, UI testing, screen recording, IntelliJ light-mode screenshots, button issue support, and final tool verification.</p>
+          <a class="linkedin-link" href="https://www.linkedin.com/in/juliana-matos-220b62247/" target="_blank" rel="noopener noreferrer" aria-label="View Juliana Pimentel on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29zM5.32 7.41a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.04H3.54V8.98H7.1v11.47z"/></svg>LinkedIn</a>
         </div>
         <div class="team-card advisor">
           <div class="team-avatar">EA</div>
           <h3>Dr. Eman AlOmar</h3>
           <span class="team-role">Research Advisor</span>
           <p>Guided the research direction, provided feedback on the demo and paper, shared reference material, and supported user testing design.</p>
+          <a class="linkedin-link" href="https://www.linkedin.com/in/eman-abdullah-alomar-0251472b1/" target="_blank" rel="noopener noreferrer" aria-label="View Dr. Eman AlOmar on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29zM5.32 7.41a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.04H3.54V8.98H7.1v11.47z"/></svg>LinkedIn</a>
         </div>
       </div>
     </div>
